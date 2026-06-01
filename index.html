@@ -1,21 +1,22 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0032)https://skylineintelligence.top/ -->
+<html lang="en" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="One API for every major AI model. Automatically route requests to the best model — save up to 70%.">
+    <meta name="description" content="One API for every major AI model. Intelligent routing that automatically selects the optimal model for your task.">
     <meta name="theme-color" content="#000000">
-    <title>SKYLINE — Smart Model Routing Platform</title>
+    <title>The Smart Router for LLMs</title>
     <meta name="description" content="One API for every major AI model. Automatically route requests to the best model — balancing speed, accuracy, and cost.">
     <meta name="theme-color" content="#000000">
-    <meta property="og:title" content="SKYLINE — Smart Model Routing">
-    <meta property="og:description" content="One API for every major AI model. Save up to 70% on AI costs.">
+    <meta property="og:title" content="The Smart Router for LLMs">
+    <meta property="og:description" content="One API for every major AI model. Save up to 35% on AI costs.">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./SKYLINE — SKYLINE AI Platform_files/css2" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 100 100&#39;&gt;&lt;text y=&#39;.9em&#39; font-size=&#39;90&#39;&gt;%E2%9A%A1&lt;/text&gt;&lt;/svg&gt;">
     <style>
         * {
             margin: 0;
@@ -25,15 +26,14 @@
 
         :root {
             --bg-primary: #000000;
-            --bg-secondary: #1d1d1f;
-            --bg-tertiary: #2d2d2f;
-            --text-primary: #f5f5f7;
-            --text-secondary: #86868b;
-            --accent: #2997ff;
-            --accent-hover: #409cff;
-            --gradient: linear-gradient(135deg, #2997ff 0%, #5e5ce6 100%);
+            --bg-secondary: #000000;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #afafaf;
+            --accent: #ffffff;
+            --accent-hover: #e2e2e2;
             --success: #32d74b;
-            --border: #3d3d3f;
+            --border: #333333;
         }
 
         [data-theme="light"] {
@@ -42,8 +42,8 @@
             --bg-tertiary: #f5f5f7;
             --text-primary: #1d1d1f;
             --text-secondary: #86868b;
-            --accent: #007aff;
-            --accent-hover: #0056b3;
+            --accent: #000000;
+            --accent-hover: #333333;
             --border: #d2d2d7;
         }
 
@@ -105,7 +105,7 @@
         .logo-icon {
             width: 32px;
             height: 32px;
-            background: var(--gradient);
+            background: transparent;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -135,7 +135,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--accent);
+            background: var(--accent); color: var(--bg-primary);
             transition: width 0.3s;
         }
 
@@ -150,10 +150,11 @@
         .nav-cta {
             padding: 8px 16px;
             background: var(--accent);
+            color: #fff;
             border-radius: 20px;
-            color: white !important;
             font-size: 13px;
             font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .nav-cta::after {
@@ -162,6 +163,9 @@
 
         .nav-cta:hover {
             background: var(--accent-hover);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
 
         .nav-right {
@@ -244,7 +248,7 @@
             }
 
             .hero h1 {
-                font-size: 48px;
+                font-size: 60px;
             }
 
             .hero-buttons {
@@ -275,29 +279,79 @@
         }
 
         .hero {
-            padding: 200px 24px 120px;
+            padding: 160px 24px 80px;
             text-align: center;
             max-width: 1100px;
             margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 80px;
+            font-size: 60px;
             font-weight: 700;
             line-height: 1.05;
             letter-spacing: -0.02em;
             margin-bottom: 24px;
-            background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
         }
 
         [data-theme="light"] .hero h1 {
-            background: linear-gradient(180deg, #000 0%, #666 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #000000;
+            -webkit-text-fill-color: #000000;
+        }
+
+        /* Pricing - Light theme */
+        [data-theme="light"] .pricing-card {
+            background: #ffffff;
+            border-color: #e5e5e7;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="light"] .pricing-card::before {
+            background: #000000;
+        }
+
+        [data-theme="light"] .pricing-card.featured {
+            background: #ffffff;
+            border-color: var(--accent);
+        }
+
+        [data-theme="light"] .pricing-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .pricing-card.featured .badge {
+            background: var(--accent); color: var(--bg-primary);
+        }
+
+        [data-theme="light"] .pricing-card h3 {
+            color: #1d1d1f;
+        }
+
+        [data-theme="light"] .pricing-card .price {
+            color: #1d1d1f;
+        }
+
+        [data-theme="light"] .pricing-card ul li {
+            color: #6e6e73;
+            border-color: #e5e5e7;
+        }
+
+        [data-theme="light"] .pricing-card ul li::before {
+            color: var(--success);
         }
 
         .hero p {
@@ -307,6 +361,23 @@
             max-width: 600px;
             margin: 0 auto 40px;
             line-height: 1.4;
+        }
+
+        .hero-subtitle {
+            display: block;
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .hero-subtitle span {
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .hero-buttons {
@@ -324,14 +395,18 @@
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
+            width: 180px;
         }
 
         .btn-primary {
             background: var(--accent);
-            color: white;
+            color: var(--bg-primary);
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary:hover {
@@ -340,12 +415,36 @@
 
         .btn-outline {
             background: transparent;
-            border: 1px solid var(--text-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+        }
+
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px transparent;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
             color: var(--accent);
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-outline:hover {
             border-color: var(--accent);
+            background: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px transparent;
         }
 
         /* Stats */
@@ -375,20 +474,20 @@
 
         /* Section */
         .section {
-            padding: 120px 24px;
+            padding: 80px 24px;
             max-width: 1100px;
             margin: 0 auto;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 48px;
         }
 
         .section-header h2 {
-            font-size: 56px;
+            font-size: 36px;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             letter-spacing: -0.02em;
         }
 
@@ -411,19 +510,36 @@
             border-radius: 20px;
             padding: 40px 28px;
             text-align: left;
-            transition: all 0.4s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glow effect on hover */
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
         .feature-card:hover {
-            transform: scale(1.02);
+            transform: translateY(-8px);
             border-color: var(--accent);
+            box-shadow: 0 20px 40px transparent;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .feature-icon {
             width: 56px;
             height: 56px;
-            background: var(--gradient);
+            background: transparent;
             border-radius: 14px;
             display: flex;
             align-items: center;
@@ -461,13 +577,30 @@
             border-radius: 16px;
             padding: 24px 16px;
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .model-card:hover {
             background: var(--bg-tertiary);
-            transform: scale(1.05);
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px transparent;
+        }
+
+        .model-card:hover::before {
+            opacity: 1;
         }
 
         .model-logo {
@@ -491,6 +624,13 @@
         .model-card p {
             font-size: 12px;
             color: var(--text-secondary);
+        }
+
+        .model-price {
+            font-size: 11px;
+            color: var(--success);
+            margin-top: 6px;
+            font-weight: 500;
         }
 
         /* Demo Section */
@@ -525,17 +665,30 @@
             padding: 20px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-option::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #000000;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .task-option:hover {
             border-color: var(--accent);
+            transform: translateY(-2px);
         }
 
         .task-option.selected {
             border-color: var(--accent);
-            background: rgba(41, 151, 255, 0.15);
+            background: transparent;
+            box-shadow: 0 0 20px transparent;
         }
 
         .task-option .icon {
@@ -573,7 +726,7 @@
         }
 
         .model-badge {
-            background: var(--gradient);
+            background: transparent;
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 15px;
@@ -621,6 +774,59 @@
             color: var(--success);
         }
 
+        /* Steps */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .step {
+            text-align: center;
+            padding: 48px 32px;
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .step-number {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 16px;
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+        }
+
+        .step h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .steps {
+                grid-template-columns: 1fr;
+                border-radius: 16px;
+            }
+            .step {
+                padding: 32px 24px;
+            }
+
+        }
+
         /* Pricing */
         .pricing-grid {
             display: grid;
@@ -628,6 +834,7 @@
             gap: 24px;
             max-width: 900px;
             margin: 0 auto;
+            align-items: stretch;
         }
 
         .pricing-card {
@@ -635,26 +842,41 @@
             border-radius: 20px;
             padding: 40px 32px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 520px;
             position: relative;
             border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        /* Simple border - no gradient */
+        .pricing-card::before {
+            display: none;
         }
 
         .pricing-card.featured {
             border: 2px solid var(--accent);
+            background: var(--bg-secondary);
         }
 
-        .pricing-card.featured::before {
-            content: 'Most Popular';
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .pricing-card.featured .badge {
             position: absolute;
             top: -14px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--accent);
+            background: #000000;
             padding: 4px 16px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
             color: white;
+            white-space: nowrap;
         }
 
         .pricing-card h3 {
@@ -664,7 +886,7 @@
         }
 
         .pricing-card .price {
-            font-size: 48px;
+            font-size: 36px;
             font-weight: 700;
             margin: 24px 0;
         }
@@ -679,6 +901,9 @@
             list-style: none;
             text-align: left;
             margin: 32px 0;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .pricing-card ul li {
@@ -691,6 +916,14 @@
             gap: 10px;
         }
 
+        .pricing-card .btn-wrapper {
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+            padding-top: 16px;
+            width: 100%;
+        }
+
         .pricing-card ul li::before {
             content: '✓';
             color: var(--success);
@@ -701,12 +934,25 @@
         .footer-cta {
             padding: 120px 24px 80px;
             text-align: center;
+            position: relative;
+        }
+
+        .footer-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 50% at 50% 100%, transparent, transparent);
+            pointer-events: none;
         }
 
         .footer-cta h2 {
-            font-size: 48px;
+            font-size: 36px;
             font-weight: 700;
             margin-bottom: 20px;
+            background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .footer-cta p {
@@ -727,10 +973,404 @@
             font-size: 12px;
         }
 
+        /* Volume Tiers */
+        .volume-tiers {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .volume-tiers .section-header {
+            margin-bottom: 32px;
+        }
+
+        .volume-tiers .section-header h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .volume-tiers .section-header p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .tier-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .tier-card:hover {
+            border-color: var(--accent);
+        }
+
+        .tier-card.featured {
+            border-color: var(--accent);
+            background: transparent;
+        }
+
+        .tier-label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .tier-discount {
+            font-size: 14px;
+            color: var(--success);
+            font-weight: 500;
+        }
+
+        /* API Section */
+        .api-section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        .api-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .api-code {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+            overflow-x: auto;
+        }
+
+        .api-code .comment {
+            color: #6a737d;
+        }
+
+        .api-code .keyword {
+            color: #79c0ff;
+        }
+
+        .api-code .string {
+            color: #a5d6ff;
+        }
+
+        .api-code .string {
+            color: #a5d6ff;
+        }
+
+        /* Playground Section */
+        .playground-container {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 24px;
+            border: 1px solid var(--border);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .playground-sidebar {
+            border-right: 1px solid var(--border);
+            padding-right: 24px;
+        }
+
+        .playground-model-select label,
+        .playground-options label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .playground-model-select select {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .option-item span {
+            font-size: 13px;
+            color: var(--text-secondary);
+            min-width: 80px;
+        }
+
+        .option-item input[type="range"] {
+            flex: 1;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            appearance: none;
+        }
+
+        .option-item input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .option-item .option-value {
+            font-size: 12px;
+            color: var(--text-primary);
+            min-width: 40px;
+            text-align: right;
+        }
+
+        .playground-main {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .playground-chat {
+            flex: 1;
+            min-height: 300px;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .chat-message.assistant {
+            align-items: flex-start;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-content p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .playground-input {
+            display: flex;
+            gap: 12px;
+        }
+
+        .playground-input textarea {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 14px;
+            resize: none;
+            min-height: 50px;
+            font-family: inherit;
+        }
+
+        .playground-input textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .playground-input .btn {
+            width: auto;
+            padding: 12px 24px;
+        }
+
+        /* Dashboard Preview */
+        .dashboard-preview {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .dashboard-sidebar {
+            background: var(--bg-tertiary);
+            padding: 20px 12px;
+            border-right: 1px solid var(--border);
+        }
+
+        .dash-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dash-nav-item:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .dash-nav-item.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .dash-icon {
+            font-size: 16px;
+        }
+
+        .dashboard-content {
+            padding: 24px;
+        }
+
+        .dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .dash-header h3 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .dash-period {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .dash-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .dash-stat-card {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .dash-stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .dash-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .dash-stat-change {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .dash-stat-change.positive {
+            color: var(--success);
+        }
+
+        .dash-chart {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            height: 120px;
+            margin-bottom: 12px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--accent) 0%, var(--text-secondary) 100%);
+            border-radius: 4px 4px 0 0;
+            min-height: 10px;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 48px;
+                font-size: 36px;
             }
 
             .hero p {
@@ -766,6 +1406,14 @@
 
             .result-stats {
                 justify-content: center;
+            }
+            
+            .tier-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .trust-badges {
+                gap: 24px !important;
             }
         }
 
@@ -864,11 +1512,10 @@
     </style>
 </head>
 <body>
-    <nav>
+    <nav style="background: var(--bg-primary);">
         <div class="container">
-            <a href="#" class="logo">
-                <div class="logo-icon">⚡</div>
-                <span>SKYLINE</span>
+            <a href="https://skylineintelligence.top/#" class="logo" style="font-size:20px;font-weight:700;text-decoration:none;color:var(--text-primary)">
+                SKYLINE AI
             </a>
             <div class="nav-right">
                 <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false">
@@ -878,238 +1525,296 @@
                 </button>
             </div>
             <ul>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#models">Models</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#docs">Docs</a></li>
-                <li><a href="#" class="nav-cta">Start Free</a></li>
-                <li>
-                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle dark/light mode">
-                        🌙
-                    </button>
-                </li>
+                <li><a href="index-uber-v2.html#features">Features</a></li>
+                <li><a href="index-uber-v2.html#models">Models</a></li>
+                <li><a href="index-uber-v2.html#pricing">Pricing</a></li>
+                <li><a href="index-uber-v2.html#docs">Docs</a></li>
+                <li><a href="dashboard.html" class="nav-cta">Get Started</a></li>
             </ul>
         </div>
     </nav>
 
     <section class="hero">
-        <h1>Smart Model Routing</h1>
-        <p>One API. Every major AI model. We automatically route your requests to the best model for your specific task — balancing speed, accuracy, and cost so you don't have to.</p>
+        <h1 style="font-size:70px">The Smart Router for LLMs</h1>
+        <p class="hero-subtitle">Unified API access to global models. Intelligently balances quality, speed, and cost.</p>
         <div class="hero-buttons">
-            <a href="#" class="btn btn-primary">Start Building →</a>
-            <a href="#demo" class="btn btn-outline">Try Demo</a>
+            <a href="#" class="btn btn-primary" onclick="openModal(); return false;">Get Started</a>
+            <a href="index-uber-v2.html#docs" class="btn btn-outline">View Docs</a>
         </div>
         <div class="stats">
-            <div class="stat-item">
+            <div class="stat-item animate-in visible">
                 <div class="stat-value">100+</div>
                 <div class="stat-label">Models</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">70%</div>
+            <div class="stat-item animate-in visible">
+                <div class="stat-value">35%</div>
                 <div class="stat-label">Cost Savings</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item animate-in visible">
+                <div class="stat-value">20%</div>
+                <div class="stat-label">Efficiency</div>
+            </div>
+            <div class="stat-item animate-in visible">
                 <div class="stat-value">99.9%</div>
                 <div class="stat-label">Uptime SLA</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">5M+</div>
-                <div class="stat-label">Tokens/Day</div>
             </div>
         </div>
     </section>
 
     <section class="section" id="features">
         <div class="section-header">
-            <h2>Why SKYLINE</h2>
-            <p>The intelligent way to use AI models — built for developers who want the best results without the complexity.</p>
+            <h2>Features</h2>
         </div>
         <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🧠</div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v10M1 12h6m6 0h10"/>
+                    </svg>
+                </div>
                 <h3>Smart Routing</h3>
-                <p>Our AI analyzes your request and picks the optimal model — balancing quality, speed, and cost for your specific task.</p>
+                <p>Our AI analyzes your task and automatically selects the optimal model based on quality, speed, and cost requirements.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">💰</div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 2v20m-7-3v3m-5-3v3m-5-3v3M3 12h3m3-6v3m3 0h6m3 0h3"/>
+                    </svg>
+                </div>
+                <h3>One API, All Models</h3>
+                <p>Access GPT-4o, Claude, Gemini, Llama, DeepSeek, Qwen and more — through a single, unified API endpoint.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 19v-9a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v9"/><path d="M2 10h20"/><path d="M22 5l-10 7-10-7"/>
+                    </svg>
+                </div>
                 <h3>Cost Optimization</h3>
-                <p>Save up to 70% compared to direct API pricing through intelligent model selection and response caching.</p>
+                <p>Automatically route to the most cost-effective model that meets your quality requirements. Save up to 35% without sacrificing performance.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌍</div>
-                <h3>Global Access</h3>
-                <p>Works out of the box. No VPN, no configuration. Just integrate and start building.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </div>
                 <h3>Enterprise Security</h3>
                 <p>SOC 2 compliant with end-to-end encryption. Your data is protected at every step.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 20V10M12 20V4M6 20v-6"/><path d="M3 20h18"/>
+                    </svg>
+                </div>
                 <h3>99.9% Uptime</h3>
                 <p>Distributed architecture with automatic failover. We switch providers instantly when issues arise.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
+            <div class="feature-card animate-in">
+                <div class="feature-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>
+                    </svg>
+                </div>
                 <h3>Usage Analytics</h3>
                 <p>Track spending, latency, and quality in real time. Understand exactly where your budget goes.</p>
             </div>
         </div>
     </section>
 
-    <section class="section" id="models">
+    <!-- How It Works -->
+    <section class="section" id="how-it-works">
         <div class="section-header">
-            <h2>Supported Models</h2>
-            <p>Access every leading model through a single, unified API.</p>
+            <h2>How It Works</h2>
+            <p>Get started in minutes with three simple steps</p>
         </div>
-        <div class="models-grid">
-            <div class="model-card">
-                <div class="model-logo" style="background:#10a37f20;color:#10a37f">O</div>
-                <h4>GPT-4o</h4>
-                <p>OpenAI</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">Step 1</div>
+                <h3>Connect</h3>
+                <p>Swap one line in your OpenAI SDK config — no code rewrites needed</p>
             </div>
-            <div class="model-card">
-                <div class="model-logo" style="background:#d9770620;color:#d97706">A</div>
-                <h4>Claude 3.5</h4>
-                <p>Anthropic</p>
+            <div class="step">
+                <div class="step-number">Step 2</div>
+                <h3>Route</h3>
+                <p>Our routing engine picks the optimal model for each request automatically</p>
             </div>
-            <div class="model-card">
-                <div class="model-logo" style="background:#4285f420;color:#4285f4">G</div>
-                <h4>Gemini 1.5</h4>
-                <p>Google</p>
-            </div>
-            <div class="model-card">
-                <div class="model-logo" style="background:#8b5cf620;color:#8b5cf6">M</div>
-                <h4>Llama 3.1</h4>
-                <p>Meta</p>
-            </div>
-            <div class="model-card">
-                <div class="model-logo" style="background:#10b98120;color:#10b981">D</div>
-                <h4>DeepSeek</h4>
-                <p>DeepSeek AI</p>
-            </div>
-            <div class="model-card">
-                <div class="model-logo" style="background:#ec489920;color:#ec4899">Q</div>
-                <h4>Qwen 2.5</h4>
-                <p>Alibaba</p>
+            <div class="step">
+                <div class="step-number">Step 3</div>
+                <h3>Scale</h3>
+                <p>Deploy with confidence — consistent performance, predictable costs</p>
             </div>
         </div>
     </section>
 
-    <section class="section" id="demo">
+    <section class="section" id="models">
         <div class="section-header">
-            <h2>See It in Action</h2>
-            <p>Select your use case and watch SKYLINE pick the optimal model automatically.</p>
+            <h2>Featured Models</h2>
+            <p>Access every leading model through a single, unified API.</p>
         </div>
-        <div class="demo">
-            <div class="demo-title">What do you need to build?</div>
-            <div class="task-options">
-                <div class="task-option selected" onclick="selectTask(this, 'creative')">
-                    <div class="icon">🎨</div>
-                    <div class="label">Creative Writing</div>
-                </div>
-                <div class="task-option" onclick="selectTask(this, 'code')">
-                    <div class="icon">💻</div>
-                    <div class="label">Coding</div>
-                </div>
-                <div class="task-option" onclick="selectTask(this, 'analysis')">
-                    <div class="icon">📊</div>
-                    <div class="label">Data Analysis</div>
-                </div>
-                <div class="task-option" onclick="selectTask(this, 'translate')">
-                    <div class="icon">🌐</div>
-                    <div class="label">Translation</div>
-                </div>
+        <div class="models-grid">
+            <div class="model-card animate-in">
+                <div class="model-logo" style="background:#00000020;color:#000000">O</div>
+                <h4>GPT-4.5</h4>
+                <p>OpenAI</p>
             </div>
-            <div class="demo-result">
-                <div class="result-header">
-                    <div>
-                        <span class="recommended">Recommended:</span>
-                        <span class="model-badge">Claude Sonnet 3.5</span>
-                    </div>
-                    <div class="result-stats">
-                        <div class="result-stat">
-                            <div class="value">$3</div>
-                            <div class="label">/1M tokens</div>
-                        </div>
-                        <div class="result-stat">
-                            <div class="value">~40s</div>
-                            <div class="label">response</div>
-                        </div>
-                        <div class="result-stat">
-                            <div class="value">95</div>
-                            <div class="label">quality score</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="routing-log">
-                    <div class="log-item"><span class="step">1</span> Analyzing: Creative writing with storytelling</div>
-                    <div class="log-item"><span class="step">2</span> Filtering models by creativity capability...</div>
-                    <div class="log-item"><span class="step">3</span> Scoring: GPT-4o ✓ | Claude 3.5 ✓ | Gemini ✗</div>
-                    <div class="log-item"><span class="step">4</span> Comparing cost-quality tradeoffs...</div>
-                    <div class="log-item"><span class="check">✓</span> Selected: Claude 3.5 (best value)</div>
-                    <div class="log-item"><span class="step">5</span> Projected savings vs GPT-4o: <span style="color:var(--success)">65%</span></div>
-                </div>
+            <div class="model-card animate-in">
+                <div class="model-logo" style="background:#00000020;color:#000000">A</div>
+                <h4>Claude Sonnet 4.6</h4>
+                <p>Anthropic</p>
+            </div>
+            <div class="model-card animate-in">
+                <div class="model-logo" style="background:#00000020;color:#000000">G</div>
+                <h4>Gemini 3.1 Pro</h4>
+                <p>Google</p>
+            </div>
+            <div class="model-card animate-in">
+                <div class="model-logo" style="background:#00000020;color:#000000">L</div>
+                <h4>Llama 4</h4>
+                <p>Meta</p>
+            </div>
+            <div class="model-card animate-in">
+                <div class="model-logo" style="background:#00000020;color:#000000">D</div>
+                <h4>DeepSeek V4</h4>
+                <p>DeepSeek AI</p>
+            </div>
+            <div class="model-card animate-in">
+                <div class="model-logo" style="background:#00000020;color:#000000">Q</div>
+                <h4>Qwen3.7-Max</h4>
+                <p>QWEN</p>
             </div>
         </div>
     </section>
+
+    <!-- Popular Agents -->
+    <section class="section" style="padding:100px 24px;background:var(--bg-primary)">
+        <div class="section-header">
+            <h2>Popular Agents</h2>
+            <p style="margin-top:8px">The AI agents powering developer productivity</p>
+        </div>
+        <div class="features-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+            <div class="feature-card" style="padding:32px 28px">
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+                    <div style="width:48px;height:48px;border-radius:12px;background:#000000;display:flex;align-items:center;justify-content:center">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://nousresearch.com&size=256" style="width:24px;height:24px;object-fit:contain;border-radius:4px">
+                    </div>
+                    <span style="font-size:11px;font-weight:600;padding:4px 8px;border-radius:6px;background:rgba(0,0,0,0.1);color:#000000">Open Source</span>
+                </div>
+                <h3 style="margin-bottom:10px;font-size:19px">Hermes Agent</h3>
+                <p style="font-size:14px;color:var(--text-secondary);line-height:1.55">Open-source AI agent with memory across sessions. Built-in 40+ tools including web search, browser automation, and vision.</p>
+            </div>
+            <div class="feature-card" style="padding:32px 28px">
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+                    <div style="width:48px;height:48px;border-radius:12px;background:#000000;display:flex;align-items:center;justify-content:center">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openclaw.ai/&size=256" style="width:24px;height:24px;object-fit:contain;border-radius:4px">
+                    </div>
+                    <span style="font-size:11px;font-weight:600;padding:4px 8px;border-radius:6px;background:rgba(0,0,0,0.1);color:#000000">Tooling</span>
+                </div>
+                <h3 style="margin-bottom:10px;font-size:19px">OpenClaw</h3>
+                <p style="font-size:14px;color:var(--text-secondary);line-height:1.55">AI agent that connects to messaging apps and takes real actions — running commands, browsing, managing files.</p>
+            </div>
+            <div class="feature-card" style="padding:32px 28px">
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+                    <div style="width:48px;height:48px;border-radius:12px;background:#000000;display:flex;align-items:center;justify-content:center">
+                        <img src="/Users/xy/Desktop/kilo.png" style="width:24px;height:24px;object-fit:contain;border-radius:4px">
+                    </div>
+                    <span style="font-size:11px;font-weight:600;padding:4px 8px;border-radius:6px;background:rgba(0,0,0,0.1);color:#000000">IDE</span>
+                </div>
+                <h3 style="margin-bottom:10px;font-size:19px">Kilo Code</h3>
+                <p style="font-size:14px;color:var(--text-secondary);line-height:1.55">AI coding agent for VS Code, JetBrains, and CLI. Helps developers ship code faster with agentic workflows.</p>
+            </div>
+            <div class="feature-card" style="padding:32px 28px">
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+                    <div style="width:48px;height:48px;border-radius:12px;background:#000000;display:flex;align-items:center;justify-content:center">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://anthropic.com&size=256" style="width:24px;height:24px;object-fit:contain;border-radius:4px">
+                    </div>
+                    <span style="font-size:11px;font-weight:600;padding:4px 8px;border-radius:6px;background:rgba(0,0,0,0.1);color:#000000">Anthropic</span>
+                </div>
+                <h3 style="margin-bottom:10px;font-size:19px">Claude Code</h3>
+                <p style="font-size:14px;color:var(--text-secondary);line-height:1.55">Anthropic's agentic coding tool. Reads codebase, plans and executes changes, runs tests — all from natural language.</p>
+            </div>
+            <div class="feature-card" style="padding:32px 28px">
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+                    <div style="width:48px;height:48px;border-radius:12px;background:#000000;display:flex;align-items:center;justify-content:center">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://openai.com/codex&size=256" style="width:24px;height:24px;object-fit:contain;border-radius:4px">
+                    </div>
+                    <span style="font-size:11px;font-weight:600;padding:4px 8px;border-radius:6px;background:rgba(0,0,0,0.1);color:#000000">OpenAI</span>
+                </div>
+                <h3 style="margin-bottom:10px;font-size:19px">Codex</h3>
+                <p style="font-size:14px;color:var(--text-secondary);line-height:1.55">OpenAI's agentic coding tool. Writes code, runs tests, and executes changes across your codebase.</p>
+            </div>
+        </div>
+    </section>
+
 
     <section class="section" id="pricing">
         <div class="section-header">
             <h2>Pricing</h2>
-            <p>Scale from free to enterprise — pay only for what you need.</p>
+            <p>Choose the plan that fits your needs.</p>
         </div>
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3>Starter</h3>
-                <div class="price">Free</div>
-                <ul>
-                    <li>1,000 free tokens</li>
-                    <li>Full model access</li>
-                    <li>Basic routing</li>
-                    <li>Community support</li>
-                </ul>
-                <a href="#" class="btn btn-outline" style="width:100%;justify-content:center">Get Started</a>
-            </div>
-            <div class="pricing-card featured">
-                <h3>Pro</h3>
-                <div class="price">$29<span>/mo</span></div>
-                <ul>
-                    <li>10M tokens included</li>
-                    <li>Smart routing</li>
-                    <li>Priority support</li>
-                    <li>Advanced analytics</li>
-                    <li>Custom prompts</li>
-                </ul>
-                <a href="#" class="btn btn-primary" style="width:100%;justify-content:center">Start Free Trial</a>
-            </div>
-            <div class="pricing-card">
-                <h3>Enterprise</h3>
-                <div class="price">Custom</div>
-                <ul>
-                    <li>Unlimited scale</li>
-                    <li>Dedicated infrastructure</li>
-                    <li>99.9% SLA</li>
-                    <li>24/7 support</li>
-                    <li>Custom integrations</li>
-                </ul>
-                <a href="#" class="btn btn-outline" style="width:100%;justify-content:center">Talk to Sales</a>
-            </div>
+        <style>
+            .price-table { width: 100%; max-width: 960px; margin: 0 auto; border-collapse: collapse; font-size: 15px; }
+            .price-table th { padding: 20px 16px; text-align: center; background: #f5f5f7; border-bottom: 1px solid #d2d2d7; font-weight: 600; }
+            .price-table th:first-child { text-align: left; width: 26%; }
+            .price-table td { padding: 16px 14px; text-align: center; border-bottom: 1px solid #e5e5ea; color: #1d1d1f; }
+            .price-table td:first-child { text-align: left; font-weight: 500; background: #f5f5f7; }
+            .price-table td.p { background: #f0f0f2; }
+            .price-table td.e { background: #f0f0f2; }
+            .price-table .tag { display: inline-block; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; background: #e5e5ea; color: #333; }
+            .price-table .tp { background: #000; color: #fff; }
+            .price-table .te { background: #333; color: #fff; }
+            .price-table .ok { color: #000; font-weight: 600; }
+            .price-table .no { color: #aeaeb2; }
+            .price-table .bt { display: inline-block; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 14px; text-decoration: none; transition: transform 0.15s; }
+            .price-table .bt:hover { transform: translateY(-1px); }
+            .price-table .bg { border: 1px solid #333; color: #333; background: transparent; }
+            .price-table .bb { background: #000; color: #fff; }
+            .price-table .bo { background: #333; color: #fff; }
+        </style>
+        <div style="overflow-x:auto">
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th><span class="tag ts">Starter</span></th>
+                    <th><span class="tag tp">Pro</span></th>
+                    <th><span class="tag te">Enterprise</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Model Access</td><td>Limited</td><td class="p">Full</td><td class="e">Full</td></tr>
+                <tr><td>Smart Routing</td><td>Basic</td><td class="p ok">✓ Advanced</td><td class="e ok">✓ Premium</td></tr>
+                <tr><td>Analytics</td><td>Basic</td><td class="p ok">✓ Advanced</td><td class="e ok">✓ Premium</td></tr>
+                <tr><td>Rate Limits</td><td>50 req/day</td><td class="p">Unlimited</td><td class="e">Unlimited</td></tr>
+                <tr><td>Dedicated Infra</td><td class="no">—</td><td class="p no">—</td><td class="e ok">✓</td></tr>
+                <tr><td>Prompt Caching</td><td class="no">—</td><td class="p ok">✓</td><td class="e ok">✓</td></tr>
+                <tr><td>Admin Controls</td><td class="no">—</td><td class="p ok">✓</td><td class="e ok">✓</td></tr>
+                <tr><td>Management API</td><td class="no">—</td><td class="p ok">✓</td><td class="e ok">✓</td></tr>
+                <tr><td>Support</td><td>Community</td><td class="p">Email Support</td><td class="e">24/7 Priority</td></tr>
+                <tr><td>SSO / SAML</td><td class="no">—</td><td class="p no">—</td><td class="e ok">✓</td></tr>
+                <tr><td>Invoicing</td><td class="no">—</td><td class="p ok">✓</td><td class="e ok">✓</td></tr>
+                <tr>
+                    <td></td>
+                    <td><a href="#" class="bt bg">Get Started</a></td>
+                    <td class="p"><a href="#" class="bt bb">Buy Credit</a></td>
+                    <td class="e"><a href="#" class="bt bo">Contact Sales</a></td>
+                </tr>
+            </tbody>
+        </table>
         </div>
     </section>
 
     <section class="footer-cta">
-        <h2>Ready to optimize your AI costs?</h2>
-        <p>No credit card required. Get your key in seconds.</p>
+        <h2>Ready to build smarter?</h2>
         <div style="display:flex;justify-content:center;gap:16px">
-            <a href="#" class="btn btn-primary">Get API Key →</a>
-            <a href="#docs" class="btn btn-outline">Read Docs</a>
+            <a href="https://skylineintelligence.top/#" class="btn btn-primary">Get Started</a>
+            <a href="https://skylineintelligence.top/#docs" class="btn btn-outline">Read Docs</a>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 SKYLINE. All rights reserved.</p>
+        <p>© 2026 SKYLINE AI. All rights reserved.</p>
     </footer>
 
     <script>
@@ -1230,5 +1935,356 @@
             }
         }
     </script>
-</body>
-</html>
+
+
+<script src="chrome-extension://gppongmhjkpfnbhagpmjfkannfbllamg/js/js.js"></script>
+        <script>
+        // Scroll Reveal Animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Add reveal class to cards
+        document.querySelectorAll('.feature-card, .pricing-card, .model-card').forEach((card, index) => {
+            card.classList.add('reveal');
+            card.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+        </script>
+        <style>
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .animate-fade { animation: fadeIn 0.5s ease forwards; }
+        .animate-slide { animation: slideUp 0.5s ease forwards; }
+        .animate-scale { animation: scaleIn 0.4s ease forwards; }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+
+        /* Button enhancements */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+        .btn:active::after {
+            width: 200px;
+            height: 200px;
+        }
+
+        /* Login Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 32px;
+            width: 100%;
+            max-width: 380px;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+        .modal-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .modal-header h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .modal-header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .modal-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-tertiary);
+            padding: 4px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .modal-tab {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+        .modal-tab.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        .modal-input {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+        .modal-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .modal-submit {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: all 0.2s;
+        }
+        .modal-submit:hover {
+            opacity: 0.9;
+        }
+        .modal-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+        .modal-divider::before,
+        .modal-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+        .social-btn:hover {
+            border-color: var(--text-secondary);
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        .modal-bottom {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .modal-bottom a {
+            color: var(--accent);
+        }
+        </style>
+
+        <!-- Login Modal -->
+        <div class="modal-overlay" id="loginModal">
+            <div class="modal">
+                <button class="modal-close" onclick="closeModal()">×</button>
+                <div class="modal-header">
+                    <h2>Welcome to SKYLINE AI</h2>
+                    <p>Start building with AI models instantly</p>
+                </div>
+                <div class="modal-tabs">
+                    <button class="modal-tab active" onclick="switchTab('login')">Sign In</button>
+                    <button class="modal-tab" onclick="switchTab('register')">Sign Up</button>
+                </div>
+                <div class="modal-form" id="loginForm">
+                    <input type="email" class="modal-input" placeholder="Email address">
+                    <input type="password" class="modal-input" placeholder="Password">
+                    <button class="modal-submit" onclick="submitLogin()">Sign In</button>
+                </div>
+                <div class="modal-form" id="registerForm" style="display:none">
+                    <input type="text" class="modal-input" placeholder="Full name">
+                    <input type="email" class="modal-input" placeholder="Email address">
+                    <input type="password" class="modal-input" placeholder="Password">
+                    <button class="modal-submit" onclick="submitRegister()">Create Account</button>
+                </div>
+                <div class="modal-divider">or</div>
+                <button class="social-btn" onclick="socialLogin('google')">
+                    <span>G</span> Continue with Google
+                </button>
+                <button class="social-btn" onclick="socialLogin('github')">
+                    <span>⌥</span> Continue with GitHub
+                </button>
+                <div class="modal-bottom">
+                    By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy</a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        let isLoggedIn = false;
+        let showDemo = false;
+
+        function openModal() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+        function closeModal() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
+        function switchTab(tab) {
+            document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+        }
+        function submitLogin() {
+            isLoggedIn = true;
+            closeModal();
+            window.location.href = 'dashboard.html';
+        }
+        function submitRegister() {
+            isLoggedIn = true;
+            closeModal();
+            window.location.href = 'dashboard.html';
+        }
+        function socialLogin(provider) {
+            isLoggedIn = true;
+            closeModal();
+            window.location.href = 'dashboard.html';
+        }
+
+        // Replace old links with modal triggers
+        document.querySelectorAll('a[href$="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if(this.classList.contains('btn')) {
+                    e.preventDefault();
+                    openModal();
+                }
+            });
+        });
+
+        // Enhanced entrance animations
+        window.addEventListener('load', function() {
+            document.body.classList.add('animate-fade');
+            
+            // Animate hero elements staggered
+            const hero = document.querySelector('.hero');
+            if(hero) {
+                hero.querySelectorAll('h1, p, .btn, .stat-item').forEach((el, i) => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                    el.style.transition = 'all 0.5s ease';
+                    el.style.transitionDelay = (i * 0.1) + 's';
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, 50);
+                });
+            }
+
+            // Floating elements
+            document.querySelectorAll('.feature-card, .model-card, .pricing-card').forEach((card, i) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.5s ease';
+                card.style.transitionDelay = (i * 0.08) + 's';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300);
+            });
+        });
+
+        // Continuous subtle animations
+        setInterval(() => {
+            document.querySelectorAll('.stat-value').forEach(el => {
+                el.style.transform = 'scale(1.02)';
+                setTimeout(() => el.style.transform = 'scale(1)', 200);
+            });
+        }, 5000);
+        </script>
+    </body></html>
