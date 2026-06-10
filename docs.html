@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SKYLINE AI developer docs for one OpenAI-compatible API, smart routing, model access, billing, and usage analytics.">
+  <meta name="theme-color" content="#fbfbfd">
+  <title>SKYLINE AI Docs</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" type="image/svg+xml" href="./linework-logo/logo-stamp.svg">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a class="brand" href="https://skylineintelligence.top/" aria-label="SKYLINE AI home">
+        <img class="brand-mark brand-mark--ink" src="./linework-logo/logo-skyline.svg" alt="" width="32" height="32">
+        <img class="brand-mark brand-mark--reverse" src="./linework-logo/logo-skyline-reverse.svg" alt="" width="32" height="32">
+        <img class="brand-wordmark" src="./linework-logo/wordmark-skyline-ai.svg" alt="SKYLINE AI" height="20">
+      </a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-links">
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="primary-links">
+        <a href="https://skylineintelligence.top/#features">Features</a>
+        <a href="https://skylineintelligence.top/#models">Models</a>
+        <a href="https://skylineintelligence.top/#pricing">Pricing</a>
+        <a href="https://api.skylineintelligence.top/docs/">Docs</a>
+        <a class="nav-cta" href="https://skylineintelligence.top/#">Get Started</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="docs">
+      <div class="hero-copy">
+        <p class="eyebrow">Developer docs</p>
+        <h1>The Smart Router for LLMs.</h1>
+        <p class="hero-subtitle">SKYLINE AI gives customer applications a stable OpenAI-compatible gateway, smart model routing, quota-aware billing, and usage visibility across Claude, GPT, Gemini, DeepSeek, Qwen, and local providers.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#quickstart">Start in minutes</a>
+          <a class="button button-outline" href="#api-reference">API reference</a>
+        </div>
+        <div class="hero-stats" aria-label="SKYLINE AI product signals">
+          <div>
+            <strong>OpenAI-compatible</strong>
+            <span>Drop-in SDK base URL</span>
+          </div>
+          <div>
+            <strong>Smart routing</strong>
+            <span>Quality, speed, and cost</span>
+          </div>
+          <div>
+            <strong>Usage ledger</strong>
+            <span>Tokens, credits, requests</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-panel" aria-label="SKYLINE AI request flow preview">
+        <div class="flow-card flow-card-source">
+          <span>01</span>
+          <strong>Application</strong>
+          <small>OpenAI SDK or cURL</small>
+        </div>
+        <div class="flow-line"></div>
+        <div class="flow-card flow-card-router">
+          <span>02</span>
+          <strong>SKYLINE AI Router</strong>
+          <small>Auth, quota, route, bill</small>
+        </div>
+        <div class="flow-line"></div>
+        <div class="flow-grid">
+          <div class="model-pill">Claude</div>
+          <div class="model-pill">GPT</div>
+          <div class="model-pill">Gemini</div>
+          <div class="model-pill">DeepSeek</div>
+        </div>
+        <pre><code>POST /v1/chat/completions
+Authorization: Bearer sk_aibrg_...
+model: "auto"</code></pre>
+      </div>
+    </section>
+
+    <section class="docs-layout" id="overview">
+      <aside class="docs-sidebar" aria-label="Documentation sections">
+        <label class="search-box">
+          <span>Search docs</span>
+          <input type="search" id="docs-search" placeholder="routing, usage, errors">
+        </label>
+        <nav class="side-nav">
+          <a href="#quickstart">First API call</a>
+          <a href="#connect">Connect with SDKs</a>
+          <a href="#api-reference">Runtime API</a>
+          <a href="#models">Models and routing</a>
+          <a href="#billing">Billing and usage</a>
+          <a href="#console">Console workflow</a>
+          <a href="#errors">Errors and fallback</a>
+          <a href="#checklist">Go-live preflight</a>
+        </nav>
+      </aside>
+
+      <div class="docs-content">
+        <section class="doc-section intro-section" data-searchable="docs overview one api smart router openai compatible">
+          <p class="eyebrow">Build with SKYLINE AI</p>
+          <h2>Recommended path for new developers</h2>
+          <p>Follow this sequence when integrating a new app. It mirrors the customer console: create credentials, confirm model access, make one request, then monitor usage and quota.</p>
+          <div class="path-grid">
+            <a class="path-card" href="#quickstart">
+              <span>1</span>
+              <strong>Make your first API call</strong>
+              <small>Create or rotate a key, copy the Base URL, and call chat completions.</small>
+            </a>
+            <a class="path-card" href="#api-reference">
+              <span>2</span>
+              <strong>Understand the runtime API</strong>
+              <small>Use OpenAI-compatible chat first; add Responses or Messages when needed.</small>
+            </a>
+            <a class="path-card" href="#models">
+              <span>3</span>
+              <strong>Choose a model or route automatically</strong>
+              <small>Use enabled model codes from your organization or ask the router to select.</small>
+            </a>
+            <a class="path-card" href="#billing">
+              <span>4</span>
+              <strong>Watch spend and reliability</strong>
+              <small>Review request count, tokens, credits, latency, and degraded fallback headers.</small>
+            </a>
+          </div>
+        </section>
+
+        <section class="doc-section" id="quickstart" data-searchable="quickstart first api call create key base url curl">
+          <p class="eyebrow">First steps</p>
+          <h2>Make your first API call</h2>
+          <p>The fastest path is to use SKYLINE AI as the base URL for an existing OpenAI-compatible client. The public site is <code>https://skylineintelligence.top/</code>; customer API calls should use <code>https://api.skylineintelligence.top/v1</code>.</p>
+          <ol class="step-list">
+            <li>
+              <span>1</span>
+              <div>
+                <strong>Create an API key</strong>
+                <p>Open <code>API Keys</code>, create a key, and keep the raw key from the one-time creation screen. Default customer scopes include <code>model:invoke</code>, <code>chat:read</code>, and <code>chat:write</code>.</p>
+              </div>
+            </li>
+            <li>
+              <span>2</span>
+              <div>
+                <strong>Copy the Base URL</strong>
+                <p>Use the console connection panel or call <code>GET /api/connection-info</code> with your console session token. The returned <code>baseUrl</code> should be <code>https://api.skylineintelligence.top/v1</code>.</p>
+              </div>
+            </li>
+            <li>
+              <span>3</span>
+              <div>
+                <strong>Send one chat request</strong>
+                <p>Use <code>model: "auto"</code> for router-owned selection, or choose a specific model from <code>/v1/models</code> or the Model Plaza.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="doc-section" id="connect" data-searchable="sdk curl python node javascript openai compatible">
+          <p class="eyebrow">Connect</p>
+          <h2>Use existing OpenAI clients</h2>
+          <p>Most apps only need two changes: set <code>baseURL</code> to SKYLINE AI and replace the API key. The request body stays familiar.</p>
+
+          <div class="code-tabs" aria-label="API examples">
+            <div class="tab-list" role="tablist">
+              <button class="tab-button active" type="button" data-tab="curl" role="tab" aria-selected="true">cURL</button>
+              <button class="tab-button" type="button" data-tab="node" role="tab" aria-selected="false">Node.js</button>
+              <button class="tab-button" type="button" data-tab="python" role="tab" aria-selected="false">Python</button>
+            </div>
+            <div class="code-panel active" data-panel="curl">
+              <button class="copy-button" type="button" data-copy-target="curl-code">Copy</button>
+              <pre id="curl-code"><code>export SKYLINE_BASE_URL="https://api.skylineintelligence.top/v1"
+export SKYLINE_API_KEY="sk_aibrg_your_key"
+
+curl "$SKYLINE_BASE_URL/chat/completions" \
+  -H "Authorization: Bearer $SKYLINE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "auto",
+    "messages": [
+      { "role": "user", "content": "Explain SKYLINE AI in one sentence." }
+    ]
+  }'</code></pre>
+            </div>
+            <div class="code-panel" data-panel="node">
+              <button class="copy-button" type="button" data-copy-target="node-code">Copy</button>
+              <pre id="node-code"><code>import OpenAI from "openai";
+
+const client = new OpenAI({
+  apiKey: process.env.SKYLINE_API_KEY,
+  baseURL: process.env.SKYLINE_BASE_URL
+});
+
+const response = await client.chat.completions.create({
+  model: "auto",
+  messages: [
+    { role: "user", content: "Write a launch checklist." }
+  ],
+  stream: false
+});
+
+process.stdout.write(response.choices[0].message.content);</code></pre>
+            </div>
+            <div class="code-panel" data-panel="python">
+              <button class="copy-button" type="button" data-copy-target="python-code">Copy</button>
+              <pre id="python-code"><code>from openai import OpenAI
+import os
+
+client = OpenAI(
+    api_key=os.environ["SKYLINE_API_KEY"],
+    base_url=os.environ["SKYLINE_BASE_URL"],
+)
+
+response = client.chat.completions.create(
+    model="auto",
+    messages=[
+        {"role": "user", "content": "Summarize this product for a CTO."}
+    ],
+)
+
+print(response.choices[0].message.content)</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="doc-section" id="api-reference" data-searchable="api reference endpoints runtime chat completions responses messages files models">
+          <p class="eyebrow">API reference</p>
+          <h2>Runtime API surface</h2>
+          <p>Customer traffic goes through the runtime service under <code>/v1</code>. Start with chat completions unless you specifically need Responses, Anthropic-style Messages, or file operations.</p>
+          <div class="endpoint-table" role="table" aria-label="SKYLINE AI runtime endpoints">
+            <div role="row">
+              <strong role="cell">GET</strong>
+              <code role="cell">/v1/models</code>
+              <span role="cell">List models visible to the caller's organization.</span>
+            </div>
+            <div role="row">
+              <strong role="cell">GET</strong>
+              <code role="cell">/v1/models/{modelId}</code>
+              <span role="cell">Fetch one enabled model. Returns not found or forbidden if unavailable.</span>
+            </div>
+            <div role="row">
+              <strong role="cell">POST</strong>
+              <code role="cell">/v1/chat/completions</code>
+              <span role="cell">Primary OpenAI-compatible chat endpoint. Supports streaming SSE.</span>
+            </div>
+            <div role="row">
+              <strong role="cell">POST</strong>
+              <code role="cell">/v1/responses</code>
+              <span role="cell">Responses-style input mapped into SKYLINE AI chat routing.</span>
+            </div>
+            <div role="row">
+              <strong role="cell">POST</strong>
+              <code role="cell">/v1/messages</code>
+              <span role="cell">Anthropic-style Messages surface for compatible clients.</span>
+            </div>
+            <div role="row">
+              <strong role="cell">POST</strong>
+              <code role="cell">/v1/messages/count_tokens</code>
+              <span role="cell">Estimate input tokens before sending a Messages request.</span>
+            </div>
+            <div role="row">
+              <strong role="cell">POST</strong>
+              <code role="cell">/v1/files</code>
+              <span role="cell">Upload files for file-aware model workflows.</span>
+            </div>
+          </div>
+
+          <div class="note-grid">
+            <div class="note-card">
+              <strong>Authentication</strong>
+              <p>Pass <code>Authorization: Bearer sk_aibrg_...</code>. Runtime also accepts <code>x-api-key</code> for Anthropic-style clients.</p>
+            </div>
+            <div class="note-card">
+              <strong>Request IDs</strong>
+              <p>Responses include a <code>request-id</code> header. Keep it with application logs so support can trace routing and billing events.</p>
+            </div>
+            <div class="note-card">
+              <strong>Streaming</strong>
+              <p>OpenAI-compatible streams emit SSE chunks and terminate with <code>data: [DONE]</code>. Billing continues to drain provider usage even if the client disconnects.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="doc-section" id="models" data-searchable="models routing auto route model plaza provider fallback vision tools streaming">
+          <p class="eyebrow">Models and routing</p>
+          <h2>Choose a model, or let the router choose</h2>
+          <p>SKYLINE AI separates customer-facing model codes from upstream provider details. Your organization only sees models enabled by an admin. The router then picks an eligible channel based on model access, capability requirements, priority, weight, health, and fallback availability.</p>
+          <div class="split-grid">
+            <div class="doc-card">
+              <h3>Use a specific model</h3>
+              <p>Call <code>GET /v1/models</code> or open Model Plaza, then send a known <code>model</code> code. This is best when your app has strict quality, context, or cost expectations.</p>
+              <pre><code>{
+  "model": "gpt-4o-mini",
+  "messages": [{ "role": "user", "content": "Hello" }]
+}</code></pre>
+            </div>
+            <div class="doc-card">
+              <h3>Use automatic routing</h3>
+              <p>Send <code>model: "auto"</code> when the organization wants SKYLINE AI to choose an eligible route. The router considers request features like streaming, tool calls, and vision before selecting a target.</p>
+              <pre><code>{
+  "model": "auto",
+  "stream": true,
+  "messages": [{ "role": "user", "content": "Draft release notes" }]
+}</code></pre>
+            </div>
+          </div>
+          <div class="routing-strip" aria-label="Routing stages">
+            <div><span>Access</span><strong>Org model enabled</strong></div>
+            <div><span>Ability</span><strong>Tools, vision, stream</strong></div>
+            <div><span>Route</span><strong>Priority and weight</strong></div>
+            <div><span>Protect</span><strong>Quota and circuit state</strong></div>
+          </div>
+        </section>
+
+        <section class="doc-section" id="billing" data-searchable="billing usage credits quota ledger budget usage summary api keys">
+          <p class="eyebrow">Billing and usage</p>
+          <h2>Every request is authorized before it runs</h2>
+          <p>SKYLINE AI reserves estimated quota and billing capacity before the provider call, then settles against actual usage after completion. That keeps quota enforcement predictable during concurrent traffic and gives finance teams a request-level ledger.</p>
+          <div class="metric-row">
+            <div>
+              <span>Before request</span>
+              <strong>Quota reservation</strong>
+              <p>Checks API key status, organization status, enabled model access, key rate limits, and estimated cost.</p>
+            </div>
+            <div>
+              <span>After response</span>
+              <strong>Credit settlement</strong>
+              <p>Calculates billable input, output, cache, and tool dimensions from provider usage.</p>
+            </div>
+            <div>
+              <span>In console</span>
+              <strong>Usage analytics</strong>
+              <p>View requests, tokens, credits, latency, status, model usage, and usage by key.</p>
+            </div>
+          </div>
+          <div class="endpoint-table compact" role="table" aria-label="Customer usage endpoints">
+            <div role="row"><strong role="cell">GET</strong><code role="cell">/api/usage/summary</code><span role="cell">Aggregate by model with optional time range and comparison.</span></div>
+            <div role="row"><strong role="cell">GET</strong><code role="cell">/api/usage/summary/by-key</code><span role="cell">Aggregate by API key and project.</span></div>
+            <div role="row"><strong role="cell">GET</strong><code role="cell">/api/usage/records</code><span role="cell">Request-level rows with token, latency, credit, status, and time.</span></div>
+            <div role="row"><strong role="cell">GET</strong><code role="cell">/api/billing/ledger</code><span role="cell">Ledger entries for customer credit movement.</span></div>
+          </div>
+        </section>
+
+        <section class="doc-section" id="console" data-searchable="console api keys model plaza usage org admin super admin provider channel">
+          <p class="eyebrow">Console workflow</p>
+          <h2>Operate the gateway from the customer UI</h2>
+          <p>The docs map directly to the current console navigation so operators and developers can speak the same language.</p>
+          <div class="console-grid">
+            <div class="console-card">
+              <span>USER</span>
+              <strong>API Keys</strong>
+              <p>Create, rotate, disable, and delete keys. Copy the Base URL and first cURL from the quick-connect panel.</p>
+            </div>
+            <div class="console-card">
+              <span>USER</span>
+              <strong>Model Plaza</strong>
+              <p>Search enabled models by provider, capability, model code, context window, and per-token pricing.</p>
+            </div>
+            <div class="console-card">
+              <span>USER</span>
+              <strong>Usage</strong>
+              <p>Review by model, by key, or at request-detail level with credits, tokens, latency, and status.</p>
+            </div>
+            <div class="console-card">
+              <span>ORG ADMIN</span>
+              <strong>Available Models</strong>
+              <p>Enable or disable models distributed to the organization and manage member quotas.</p>
+            </div>
+            <div class="console-card">
+              <span>SUPER ADMIN</span>
+              <strong>Provider Services</strong>
+              <p>Register provider base URLs, discover models, map channels, and set pricing dimensions.</p>
+            </div>
+            <div class="console-card">
+              <span>SUPER ADMIN</span>
+              <strong>Routing</strong>
+              <p>Bind model abilities to channels, priority, weight, provider model codes, and adapter regions.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="doc-section" id="errors" data-searchable="errors fallback degraded retry after request id rate limit insufficient balance">
+          <p class="eyebrow">Errors and fallback</p>
+          <h2>Handle failures explicitly</h2>
+          <p>Runtime errors use a stable JSON shape with a request ID. Rate limits and temporary service pressure include <code>Retry-After</code>. Fallback responses expose degradation metadata so your app can decide whether to display, retry, or audit the result.</p>
+          <div class="split-grid">
+            <div class="doc-card">
+              <h3>Error body</h3>
+              <pre><code>{
+  "type": "error",
+  "error": {
+    "type": "rate_limit_error",
+    "message": "API key rate limit exceeded"
+  },
+  "request_id": "req_..."
+}</code></pre>
+            </div>
+            <div class="doc-card">
+              <h3>Fallback headers</h3>
+              <pre><code>X-SKYLINE-Degraded: true
+X-SKYLINE-Fallback-Reason: channel_unhealthy
+X-SKYLINE-Fallback-From: claude-sonnet
+X-SKYLINE-Fallback-To: gpt-4o-mini</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="doc-section" id="checklist" data-searchable="go live preflight integration api key logging quota retries">
+          <p class="eyebrow">Before live traffic</p>
+          <h2>Go-live preflight</h2>
+          <p>Use this as a final client-integration check before an app sends real traffic through SKYLINE AI. It is not a platform production runbook.</p>
+          <div class="checklist">
+            <label><input type="checkbox"> Store API keys in a secret manager, never in code or client-side bundles.</label>
+            <label><input type="checkbox"> Log <code>request-id</code>, selected model, latency, and fallback headers for every call.</label>
+            <label><input type="checkbox"> Set per-key budgets and expiration dates for services, jobs, and developer sandboxes.</label>
+            <label><input type="checkbox"> Use streaming for long responses and set client-side read timeouts.</label>
+            <label><input type="checkbox"> Watch usage by key during launch, then tune model choices or automatic routing policy.</label>
+            <label><input type="checkbox"> Treat <code>429</code>, <code>402</code>, and fallback-degraded responses as separate operational states.</label>
+          </div>
+        </section>
+
+        <p class="empty-search" hidden>No docs sections match that search.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>SKYLINE AI Docs</span>
+    <span>OpenAI-compatible gateway, smart routing, and usage-aware billing.</span>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SKYLINE AI — Email Signature</title>
+<style>
+  :root { --bg: #f5f1e8; --ink: #111; --muted: #666; --rule: #d8d2c4; --card: #fff; --accent: #2a6f3a; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 13px; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); text-transform: uppercase; letter-spacing: 2px; color: #555; }
+  .sub { color: var(--muted); font-size: 12px; margin-bottom: 20px; }
+
+  /* Email body context */
+  .email-frame {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    max-width: 720px;
+    overflow: hidden;
+  }
+  .email-meta {
+    background: #fafafa;
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 20px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .email-meta div { line-height: 1.6; }
+  .email-meta b { color: var(--ink); font-weight: 600; }
+  .email-body {
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #222;
+  }
+  .email-body p { margin: 0 0 12px; }
+  .email-body blockquote {
+    border-left: 3px solid var(--rule);
+    margin: 16px 0;
+    padding: 4px 0 4px 16px;
+    color: var(--muted);
+  }
+  .email-divider {
+    height: 1px;
+    background: var(--rule);
+    margin: 20px 0;
+  }
+
+  /* ===== SIGNATURE VARIANT 1 — horizontal, with logo ===== */
+  .sig-1 {
+    display: flex;
+    align-items: stretch;
+    gap: 18px;
+    max-width: 540px;
+  }
+  .sig-1 .logo {
+    width: 64px; height: 64px;
+    flex-shrink: 0;
+  }
+  .sig-1 .body { flex: 1; }
+  .sig-1 .name {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 2px;
+  }
+  .sig-1 .role {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .sig-1 .company {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 2px;
+    margin: 0 0 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+  }
+  .sig-1 .contact {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .sig-1 .contact a { color: var(--ink); text-decoration: none; }
+  .sig-1 .contact a:hover { text-decoration: underline; }
+
+  /* ===== SIGNATURE VARIANT 2 — vertical, minimal ===== */
+  .sig-2 {
+    max-width: 320px;
+    padding-left: 14px;
+    border-left: 2px solid var(--ink);
+  }
+  .sig-2 .name { font-size: 15px; font-weight: 600; color: var(--ink); }
+  .sig-2 .role { font-size: 11px; color: var(--muted); margin: 2px 0 10px; }
+  .sig-2 .brand {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .sig-2 .contact {
+    font-size: 11px; color: var(--muted); line-height: 1.7;
+  }
+  .sig-2 .contact a { color: var(--ink); text-decoration: none; }
+
+  /* ===== SIGNATURE VARIANT 3 — compact, with mini wordmark ===== */
+  .sig-3 {
+    max-width: 480px;
+  }
+  .sig-3 .row1 { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .sig-3 .row1 .logo-sm { width: 22px; height: 22px; flex-shrink: 0; }
+  .sig-3 .row1 .wm {
+    font-size: 12px; font-weight: 700; letter-spacing: 2.5px; color: var(--ink);
+  }
+  .sig-3 .name {
+    font-size: 16px; font-weight: 600; color: var(--ink); margin: 4px 0 2px;
+  }
+  .sig-3 .role { font-size: 11px; color: var(--muted); margin: 0 0 6px; }
+  .sig-3 .contact {
+    font-size: 11px; color: var(--muted); line-height: 1.7;
+  }
+  .sig-3 .contact a { color: var(--ink); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<h1>Email Signature Variants</h1>
+<div class="sub">Three layouts for different contexts — full / minimal / compact</div>
+
+<h2>Variant 1 — Full (recommended for exec / external)</h2>
+<div class="email-frame">
+  <div class="email-meta">
+    <div><b>From:</b> Maya Chen &lt;maya@skyline.ai&gt;</div>
+    <div><b>To:</b> planning-dept@city.gov</div>
+    <div><b>Subject:</b> Re: Q3 pilot proposal — civic data integration</div>
+  </div>
+  <div class="email-body">
+    <p>Hi Daniel,</p>
+    <p>Thanks for the conversation yesterday. I've attached the updated scope for the Q3 pilot — three intersections in the Mission District, a 90-day evaluation window, and a clear exit clause if we don't hit the 30% reduction in incident response time we discussed.</p>
+    <p>A few things I'd like to confirm on our end before we sign:</p>
+    <blockquote>— Data residency will be US-only, region-locked to your VPC<br>— Our team handles integration with your existing SCADA stack<br>— No training on your data; that's contractually fixed</blockquote>
+    <p>Let me know if you want a 30-min walkthrough this week.</p>
+    <p>Best,<br>Maya</p>
+
+    <div class="email-divider"></div>
+
+    <div class="sig-1">
+      <svg class="logo" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="200" r="180" fill="none" stroke="#111" stroke-width="10"/>
+        <g fill="none" stroke="#111" stroke-width="14" stroke-linejoin="miter" stroke-linecap="square">
+          <path d="M 91 300 L 91 268 L 126 268 L 126 300"/>
+          <path d="M 130 300 L 130 248 L 152 248 L 152 228 L 160 228 L 160 300"/>
+          <path d="M 164 300 L 164 210 L 173 210 L 173 188 L 180 188 L 180 168 L 184 168 L 184 300"/>
+          <path d="M 188 300 L 200 44 L 212 300 Z"/>
+          <path d="M 184 300 L 190 280 L 210 280 L 216 300"/>
+          <path d="M 216 300 L 216 168 L 220 168 L 220 188 L 227 188 L 227 210 L 236 210 L 236 300"/>
+          <path d="M 240 300 L 240 228 L 248 228 L 248 248 L 270 248 L 270 300"/>
+          <path d="M 274 300 L 274 268 L 309 268 L 309 300"/>
+        </g>
+        <line x1="80" y1="300" x2="320" y2="300" stroke="#111" stroke-width="6"/>
+      </svg>
+      <div class="body">
+        <p class="name">Maya Chen</p>
+        <p class="role">VP, Civic Partnerships</p>
+        <p class="company">SKYLINE AI</p>
+        <p class="contact">
+          <a href="mailto:maya@skyline.ai">maya@skyline.ai</a> · +1 (415) 555-0142<br>
+          <a href="https://skyline.ai">skyline.ai</a> · San Francisco · New York · Singapore
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Variant 2 — Minimal (text-only reply chains)</h2>
+<div class="email-frame">
+  <div class="email-body" style="padding-top: 24px;">
+    <p>Quick +1 to Maya's last message — happy to walk through the integration side on a call if that's helpful.</p>
+    <p>— Jonas</p>
+
+    <div class="email-divider"></div>
+
+    <div class="sig-2">
+      <div class="name">Jonas Reuter</div>
+      <div class="role">Staff Engineer, Integrations</div>
+      <div class="brand">SKYLINE AI</div>
+      <div class="contact">
+        <a href="mailto:jonas@skyline.ai">jonas@skyline.ai</a><br>
+        skyline.ai/integrations
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Variant 3 — Compact (with mini wordmark)</h2>
+<div class="email-frame">
+  <div class="email-body" style="padding-top: 24px;">
+    <p>Following up on the agenda for Thursday's session — I've added the routing-as-API item as #4, and reserved the last 10 minutes for Q&A.</p>
+
+    <div class="email-divider"></div>
+
+    <div class="sig-3">
+      <div class="row1">
+        <svg class="logo-sm" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="200" cy="200" r="180" fill="none" stroke="#111" stroke-width="10"/>
+          <g fill="none" stroke="#111" stroke-width="14" stroke-linejoin="miter" stroke-linecap="square">
+            <path d="M 188 300 L 200 44 L 212 300 Z"/>
+            <path d="M 91 300 L 91 268 L 126 268 L 126 300"/>
+            <path d="M 274 300 L 274 268 L 309 268 L 309 300"/>
+          </g>
+        </svg>
+        <span class="wm">SKYLINE AI</span>
+      </div>
+      <div class="name">Priya Iyer</div>
+      <div class="role">Head of Product</div>
+      <div class="contact">
+        <a href="mailto:priya@skyline.ai">priya@skyline.ai</a> · priya.iyer on Slack<br>
+        <a href="https://skyline.ai">skyline.ai</a> · San Francisco
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

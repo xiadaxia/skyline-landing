@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 100" width="640" height="100">
+  <title>SKYLINE AI — Wordmark (Bold)</title>
+  <desc>Custom geometric wordmark for SKYLINE AI; cap height 80, line weight 8 (bold), miter joins, tracking 14</desc>
+
+  <defs>
+    <style>
+      .wm  { fill: none; stroke: #111; stroke-width: 8; stroke-linecap: square; stroke-linejoin: miter; stroke-miterlimit: 6; }
+    </style>
+  </defs>
+
+  <g class="wm">
+    <!-- S -->
+    <path d="M 50 10 L 10 10 L 10 50 L 50 50 L 50 90 L 10 90"/>
+    <!-- K -->
+    <path transform="translate(74, 0)" d="M 10 10 L 10 90 M 10 50 L 50 10 M 10 50 L 50 90"/>
+    <!-- Y -->
+    <path transform="translate(148, 0)" d="M 10 10 L 30 50 M 50 10 L 30 50 M 30 50 L 30 90"/>
+    <!-- L -->
+    <path transform="translate(222, 0)" d="M 10 10 L 10 90 L 50 90"/>
+    <!-- I (narrow 30) -->
+    <path transform="translate(296, 0)" d="M 15 10 L 15 90 M 5 10 L 25 10 M 5 90 L 25 90"/>
+    <!-- N -->
+    <path transform="translate(340, 0)" d="M 10 10 L 10 90 M 10 10 L 50 90 M 50 10 L 50 90"/>
+    <!-- E -->
+    <path transform="translate(414, 0)" d="M 10 10 L 10 90 M 10 10 L 50 10 M 10 50 L 40 50 M 10 90 L 50 90"/>
+    <!-- A (word gap 42) -->
+    <path transform="translate(516, 0)" d="M 10 90 L 30 10 L 50 90 M 18 60 L 42 60"/>
+    <!-- I (narrow) -->
+    <path transform="translate(590, 0)" d="M 15 10 L 15 90 M 5 10 L 25 10 M 5 90 L 25 90"/>
+  </g>
+</svg>

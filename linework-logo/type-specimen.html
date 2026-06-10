@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SKYLINE AI — Type Specimen</title>
+<style>
+  :root { --bg: #f5f1e8; --ink: #111; --muted: #888; --card: #fff; --rule: #d8d2c4; }
+  body {
+    margin: 0;
+    padding: 48px 32px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+  h2 { font-size: 14px; font-weight: 600; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); text-transform: uppercase; letter-spacing: 2px; color: #555; }
+  .sub { color: var(--muted); font-size: 12px; margin-bottom: 32px; }
+  .card { background: var(--card); border-radius: 6px; padding: 32px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+  .meta { font-size: 11px; color: var(--muted); margin-top: 16px; line-height: 1.6; }
+
+  /* Wordmark display */
+  .wordmark-big { text-align: center; padding: 32px 0; }
+  .wordmark-big svg { max-width: 720px; width: 100%; height: auto; }
+  .wordmark-tag { font-size: 11px; color: var(--muted); text-align: center; margin-top: 16px; letter-spacing: 2px; }
+
+  /* Character grid */
+  .grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 12px; }
+  .glyph { background: var(--card); border-radius: 6px; padding: 16px 8px 12px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+  .glyph svg { width: 100%; height: 80px; }
+  .glyph .name { font-size: 10px; color: var(--muted); margin-top: 8px; letter-spacing: 1px; }
+  .glyph .path-hint { font-size: 9px; color: #aaa; margin-top: 4px; font-family: ui-monospace, monospace; }
+
+  /* Construction grid */
+  .construction { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .construct { background: var(--card); border-radius: 6px; padding: 16px; }
+  .construct h3 { font-size: 12px; font-weight: 600; margin: 0 0 12px; letter-spacing: 1px; }
+  .construct svg { width: 100%; height: 120px; }
+
+  /* Brand lockup */
+  .lockup { background: var(--card); border-radius: 6px; padding: 32px; text-align: center; }
+  .lockup svg { max-width: 100%; height: auto; }
+
+  /* Code block */
+  pre { background: #1a1a1a; color: #c0d090; padding: 16px; border-radius: 6px; font-size: 11px; font-family: ui-monospace, "SF Mono", Menlo, monospace; overflow-x: auto; line-height: 1.5; }
+  pre .cm { color: #666; }
+  pre .k  { color: #f5a0a0; }
+  pre .v  { color: #a0c8f5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>SKYLINE AI — Type Specimen</h1>
+  <div class="sub">Custom geometric wordmark · v1 · cap height 80 · stroke 6 · miter joins</div>
+
+  <h2>Wordmark</h2>
+  <div class="card">
+    <div class="wordmark-big">
+      <svg viewBox="0 0 660 100" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#111" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="6">
+          <path d="M 80 10 L 40 10 L 40 50 L 80 50 L 80 90 L 40 90"/>
+          <path d="M 112 10 L 112 90 M 112 50 L 152 10 M 112 50 L 152 90"/>
+          <path d="M 184 10 L 204 50 M 224 10 L 204 50 M 204 50 L 204 90"/>
+          <path d="M 256 10 L 256 90 L 296 90"/>
+          <path d="M 333 10 L 333 90 M 323 10 L 343 10 M 323 90 L 343 90"/>
+          <path d="M 370 10 L 370 90 M 370 10 L 410 90 M 410 10 L 410 90"/>
+          <path d="M 442 10 L 442 90 M 442 10 L 482 10 M 442 50 L 472 50 M 442 90 L 482 90"/>
+          <path d="M 568 10 L 588 90 M 548 90 L 568 10 M 556 60 L 580 60"/>
+          <path d="M 625 10 L 625 90 M 615 10 L 635 10 M 615 90 L 635 90"/>
+        </g>
+      </svg>
+    </div>
+    <div class="wordmark-tag">SKYLINE AI</div>
+  </div>
+
+  <h2>Character set</h2>
+  <div class="grid">
+    <div class="glyph">
+      <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M 50 10 L 10 10 L 10 50 L 50 50 L 50 90 L 10 90" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square"/></svg>
+      <div class="name">S</div>
+      <div class="path-hint">5 strokes</div>
+    </div>
+    <div class="glyph">
+      <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M 10 10 L 10 90 M 10 50 L 50 10 M 10 50 L 50 90" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square"/></svg>
+      <div class="name">K</div>
+      <div class="path-hint">3 strokes</div>
+    </div>
+    <div class="glyph">
+      <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M 10 10 L 30 50 M 50 10 L 30 50 M 30 50 L 30 90" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square"/></svg>
+      <div class="name">Y</div>
+      <div class="path-hint">3 strokes</div>
+    </div>
+    <div class="glyph">
+      <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M 10 10 L 10 90 L 50 90" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square"/></svg>
+      <div class="name">L</div>
+      <div class="path-hint">2 strokes</div>
+    </div>
+    <div class="glyph">
+      <svg viewBox="0 0 30 100" xmlns="http://www.w3.org/2000/svg"><path d="M 15 10 L 15 90 M 5 10 L 25 10 M 5 90 L 25 90" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square"/></svg>
+      <div class="name">I</div>
+      <div class="path-hint">narrow · 30w</div>
+    </div>
+    <div class="glyph">
+      <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M 10 10 L 10 90 M 10 10 L 50 90 M 50 10 L 50 90" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square"/></svg>
+      <div class="name">N</div>
+      <div class="path-hint">3 strokes</div>
+    </div>
+    <div class="glyph">
+      <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M 10 10 L 10 90 M 10 10 L 50 10 M 10 50 L 40 50 M 10 90 L 50 90" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square"/></svg>
+      <div class="name">E</div>
+      <div class="path-hint">4 strokes</div>
+    </div>
+    <div class="glyph">
+      <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg"><path d="M 10 90 L 30 10 L 50 90 M 18 60 L 42 60" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square"/></svg>
+      <div class="name">A</div>
+      <div class="path-hint">apex · spire</div>
+    </div>
+  </div>
+
+  <h2>Construction notes</h2>
+  <div class="construction">
+    <div class="construct">
+      <h3>Grid</h3>
+      <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="60" height="100" fill="none" stroke="#d8d2c4" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <line x1="10" y1="0" x2="10" y2="100" stroke="#aaa" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <line x1="50" y1="0" x2="50" y2="100" stroke="#aaa" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <line x1="0" y1="10" x2="60" y2="10" stroke="#aaa" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <line x1="0" y1="90" x2="60" y2="90" stroke="#aaa" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <text x="3" y="6" font-size="5" fill="#888">10</text>
+        <text x="3" y="98" font-size="5" fill="#888">90</text>
+        <text x="55" y="6" font-size="5" fill="#888">50</text>
+        <text x="3" y="55" font-size="5" fill="#888">50</text>
+      </svg>
+    </div>
+    <div class="construct">
+      <h3>Style</h3>
+      <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="14" font-size="10" fill="#111" font-family="ui-sans-serif">Cap height</text>
+        <text x="0" y="30" font-size="10" fill="#111" font-family="ui-sans-serif">Stroke weight</text>
+        <text x="0" y="46" font-size="10" fill="#111" font-family="ui-sans-serif">Line cap</text>
+        <text x="0" y="62" font-size="10" fill="#111" font-family="ui-sans-serif">Line join</text>
+        <text x="0" y="78" font-size="10" fill="#111" font-family="ui-sans-serif">Tracking</text>
+        <text x="0" y="94" font-size="10" fill="#111" font-family="ui-sans-serif">Case</text>
+        <text x="105" y="14" font-size="10" fill="#888" font-family="ui-monospace">80 units</text>
+        <text x="105" y="30" font-size="10" fill="#888" font-family="ui-monospace">6 units</text>
+        <text x="105" y="46" font-size="10" fill="#888" font-family="ui-monospace">square</text>
+        <text x="105" y="62" font-size="10" fill="#888" font-family="ui-monospace">miter (6)</text>
+        <text x="105" y="78" font-size="10" fill="#888" font-family="ui-monospace">12 units</text>
+        <text x="105" y="94" font-size="10" fill="#888" font-family="ui-monospace">all caps</text>
+      </svg>
+    </div>
+    <div class="construct">
+      <h3>Narrow glyph</h3>
+      <svg viewBox="0 0 30 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="30" height="100" fill="none" stroke="#d8d2c4" stroke-width="0.5" stroke-dasharray="2 2"/>
+        <path d="M 15 10 L 15 90 M 5 10 L 25 10 M 5 90 L 25 90" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square"/>
+        <text x="2" y="55" font-size="5" fill="#888">I</text>
+      </svg>
+    </div>
+    <div class="construct">
+      <h3>Spire reference</h3>
+      <svg viewBox="0 0 60 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 30 10 L 30 90 M 10 10 L 30 10 L 50 10" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square" opacity="0.4"/>
+        <path d="M 10 90 L 30 10 L 50 90 M 18 60 L 42 60" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="miter" stroke-linecap="square"/>
+        <text x="22" y="98" font-size="5" fill="#888">A apex = spire</text>
+      </svg>
+    </div>
+  </div>
+
+  <h2>Brand lockup</h2>
+  <div class="lockup">
+    <img src="brand-lockup.svg" alt="SKYLINE AI brand lockup" style="width: 100%; max-width: 800px;"/>
+  </div>
+
+  <h2>Source</h2>
+  <pre><span class="cm">&lt;!-- Single line: pick up the wordmark and use anywhere --&gt;</span>
+&lt;svg viewBox=<span class="v">"0 0 660 100"</span>&gt;
+  &lt;g fill=<span class="v">"none"</span> stroke=<span class="v">"#111"</span> stroke-width=<span class="v">"6"</span>
+     stroke-linecap=<span class="v">"square"</span> stroke-linejoin=<span class="v">"miter"</span>&gt;
+    <span class="cm">&lt;!-- S K Y L I N E A I --&gt;</span>
+  &lt;/g&gt;
+&lt;/svg&gt;</pre>
+
+  <div class="meta">
+    <strong>Note:</strong> This is a wordmark, not a full typeface. Letterforms are tuned for the brand string "SKYLINE AI" — they are not general-purpose. Each letter is drawn as a single SVG path (with M moves for disconnected segments) and shares the same stroke parameters as the logo medallion. Color: ink <code style="background:#eee;padding:0 4px;border-radius:3px;">#111</code> on cream <code style="background:#eee;padding:0 4px;border-radius:3px;">#f5f1e8</code> (or inverse on dark backgrounds).
+  </div>
+</div>
+</body>
+</html>

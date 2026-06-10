@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Geometric City Logo — Stamp (Condensed)</title>
+  <desc>Condensed stamp-style version: just outer ring, horizon, and city silhouette — for use as avatar, watermark, or seal</desc>
+
+  <defs>
+    <style>
+      .ring    { fill: none; stroke: #111; stroke-width: 4;   stroke-linecap: round; stroke-linejoin: round; }
+      .horizon { fill: none; stroke: #111; stroke-width: 2;   stroke-linecap: round; }
+      .city    { fill: none; stroke: #111; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: miter; stroke-miterlimit: 6; }
+    </style>
+  </defs>
+
+  <!-- Single outer ring -->
+  <circle cx="200" cy="200" r="180" class="ring"/>
+
+  <!-- Horizon line -->
+  <line x1="80" y1="300" x2="320" y2="300" class="horizon"/>
+
+  <!-- City silhouette (no inner ring, no compass nodes, no stars) -->
+  <g class="city">
+    <path d="M 91 300 L 91 268 L 126 268 L 126 300"/>
+    <path d="M 130 300 L 130 248 L 152 248 L 152 228 L 160 228 L 160 300"/>
+    <path d="M 164 300 L 164 210 L 173 210 L 173 188 L 180 188 L 180 168 L 184 168 L 184 300"/>
+    <path d="M 188 300 L 200 44 L 212 300 Z"/>
+    <path d="M 184 300 L 190 280 L 210 280 L 216 300"/>
+    <path d="M 216 300 L 216 168 L 220 168 L 220 188 L 227 188 L 227 210 L 236 210 L 236 300"/>
+    <path d="M 240 300 L 240 228 L 248 228 L 248 248 L 270 248 L 270 300"/>
+    <path d="M 274 300 L 274 268 L 309 268 L 309 300"/>
+  </g>
+</svg>

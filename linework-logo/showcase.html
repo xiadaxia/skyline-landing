@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Geometric City Logo — Output Kit</title>
+<style>
+  :root {
+    --bg: #f5f1e8;
+    --ink: #111;
+    --muted: #888;
+    --card: #ffffff;
+  }
+  body {
+    margin: 0;
+    padding: 48px 32px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 24px; font-weight: 600; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 40px; }
+  h2 { font-size: 16px; font-weight: 600; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid #d8d2c4; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 6px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  }
+  .card.dark { background: var(--ink); }
+  .card .thumb { width: 100%; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; }
+  .card .thumb svg, .card .thumb img { max-width: 100%; max-height: 100%; }
+  .card .name { margin-top: 12px; font-size: 13px; font-weight: 500; }
+  .card .meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .card.dark .name, .card.dark .meta { color: #f5f1e8; }
+  .card.dark .meta { color: #999; }
+
+  /* Icon size row */
+  .sizes { display: flex; align-items: flex-end; gap: 32px; flex-wrap: wrap; padding: 16px 0; }
+  .size-item { display: flex; flex-direction: column; align-items: center; }
+  .size-item .label { font-size: 10px; color: var(--muted); margin-top: 8px; }
+
+  /* File list */
+  .files { background: var(--card); border-radius: 6px; padding: 20px 24px; }
+  .files code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; color: #2a6f3a; }
+  .files li { margin: 6px 0; font-size: 13px; }
+  .files .desc { color: var(--muted); font-size: 12px; margin-left: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Geometric City Logo — Output Kit</h1>
+  <div class="sub">v8 — linework medallion with horizon, compass nodes, and stepped base</div>
+
+  <h2>Primary versions</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="thumb">
+        <img src="preview-skyline.png" alt="Main logo" width="240"/>
+      </div>
+      <div class="name">Main — Light</div>
+      <div class="meta">logo-skyline.svg · 1.0×, white-on-cream</div>
+    </div>
+
+    <div class="card dark">
+      <div class="thumb">
+        <img src="logo-skyline-reverse.svg" alt="Reverse logo" width="240"/>
+      </div>
+      <div class="name">Reverse — Dark</div>
+      <div class="meta">logo-skyline-reverse.svg · dark UI / favicon</div>
+    </div>
+
+    <div class="card">
+      <div class="thumb">
+        <img src="logo-stamp.svg" alt="Stamp logo" width="240"/>
+      </div>
+      <div class="name">Stamp — Condensed</div>
+      <div class="meta">logo-stamp.svg · avatar / watermark / seal</div>
+    </div>
+  </div>
+
+  <h2>Favicon sizes</h2>
+  <div class="card">
+    <div class="sizes">
+      <div class="size-item"><img src="favicon-16.png" width="16" height="16" alt=""/><div class="label">16×16</div></div>
+      <div class="size-item"><img src="favicon-32.png" width="32" height="32" alt=""/><div class="label">32×32</div></div>
+      <div class="size-item"><img src="favicon-48.png" width="48" height="48" alt=""/><div class="label">48×48</div></div>
+      <div class="size-item"><img src="favicon-64.png" width="64" height="64" alt=""/><div class="label">64×64</div></div>
+      <div class="size-item"><img src="favicon-128.png" width="128" height="128" alt=""/><div class="label">128×128</div></div>
+      <div class="size-item"><img src="favicon-256.png" width="256" height="256" alt=""/><div class="label">256×256</div></div>
+    </div>
+    <div class="meta" style="text-align:center; margin-top: 16px;">All sizes derived from a single silhouette SVG, retuned line weights per size class.</div>
+  </div>
+
+  <h2>File inventory</h2>
+  <div class="files">
+    <ul style="padding-left: 20px; margin: 0;">
+      <li><code>logo-skyline.svg</code><span class="desc">— Primary, light background</span></li>
+      <li><code>logo-skyline-reverse.svg</code><span class="desc">— Reverse colors for dark UI</span></li>
+      <li><code>logo-stamp.svg</code><span class="desc">— Condensed stamp / seal version</span></li>
+      <li><code>preview-skyline.png</code><span class="desc">— PNG preview of main logo (800×800)</span></li>
+      <li><code>favicon-16.png</code> · <code>favicon-32.png</code> · <code>favicon-48.png</code> · <code>favicon-64.png</code> · <code>favicon-128.png</code> · <code>favicon-256.png</code><span class="desc">— Favicon size variants</span></li>
+      <li><code>README.md</code><span class="desc">— Kit documentation</span></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SKYLINE AI — Website Header Mockup</title>
+<style>
+  :root { --bg: #f5f1e8; --ink: #111; --muted: #666; --rule: #d8d2c4; --card: #fff; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 72px;
+    background: var(--card);
+    border-bottom: 1px solid var(--rule);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+  .brand-mark { width: 32px; height: 32px; flex-shrink: 0; }
+  .brand-text {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--ink);
+  }
+
+  .nav { display: flex; gap: 28px; }
+  .nav a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    position: relative;
+  }
+  .nav a:hover { color: var(--muted); }
+  .nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -8px;
+    height: 2px; background: var(--ink);
+  }
+
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .signin {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .signin:hover { color: var(--muted); }
+  .cta {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 9px 18px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .cta:hover { background: #333; }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 96px 40px;
+    text-align: center;
+    background: var(--bg);
+    position: relative;
+  }
+  .hero-mark {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 32px;
+    display: block;
+  }
+  .hero h1 {
+    font-size: 56px;
+    line-height: 1.1;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero p {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 620px;
+    margin: 0 auto 36px;
+    line-height: 1.6;
+  }
+  .hero-cta-row { display: flex; gap: 12px; justify-content: center; }
+  .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .btn-primary { background: var(--ink); color: var(--bg); }
+  .btn-primary:hover { background: #333; }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--bg); }
+
+  /* Mock page body */
+  .feature-row {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .feature { padding: 24px; border: 1px solid var(--rule); border-radius: 6px; background: var(--card); }
+  .feature .label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .feature h3 { font-size: 18px; margin: 8px 0 8px; }
+  .feature p { font-size: 13px; color: var(--muted); line-height: 1.6; margin: 0; }
+
+  /* Demo wrapper */
+  .demo-label {
+    background: #1a1a1a;
+    color: #888;
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    padding: 8px 16px;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-label">HEADER COMPONENT — sticky · 72px · white-on-cream</div>
+
+<header class="site-header">
+  <a href="#" class="brand">
+    <svg class="brand-mark" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="200" cy="200" r="180" fill="none" stroke="#111" stroke-width="10"/>
+      <g fill="none" stroke="#111" stroke-width="14" stroke-linejoin="miter" stroke-linecap="square">
+        <path d="M 91 300 L 91 268 L 126 268 L 126 300"/>
+        <path d="M 130 300 L 130 248 L 152 248 L 152 228 L 160 228 L 160 300"/>
+        <path d="M 164 300 L 164 210 L 173 210 L 173 188 L 180 188 L 180 168 L 184 168 L 184 300"/>
+        <path d="M 188 300 L 200 44 L 212 300 Z"/>
+        <path d="M 184 300 L 190 280 L 210 280 L 216 300"/>
+        <path d="M 216 300 L 216 168 L 220 168 L 220 188 L 227 188 L 227 210 L 236 210 L 236 300"/>
+        <path d="M 240 300 L 240 228 L 248 228 L 248 248 L 270 248 L 270 300"/>
+        <path d="M 274 300 L 274 268 L 309 268 L 309 300"/>
+      </g>
+      <line x1="80" y1="300" x2="320" y2="300" stroke="#111" stroke-width="6"/>
+    </svg>
+    <span class="brand-text">SKYLINE AI</span>
+  </a>
+
+  <nav class="nav">
+    <a href="#" class="active">Product</a>
+    <a href="#">Solutions</a>
+    <a href="#">Docs</a>
+    <a href="#">Pricing</a>
+    <a href="#">About</a>
+  </nav>
+
+  <div class="header-right">
+    <a href="#" class="signin">Sign In</a>
+    <a href="#" class="cta">Get Started</a>
+  </div>
+</header>
+
+<section class="hero">
+  <svg class="hero-mark" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="200" cy="200" r="180" fill="none" stroke="#111" stroke-width="6"/>
+    <g fill="#111">
+      <path d="M 380 194 L 386 200 L 380 206 L 374 200 Z"/>
+      <path d="M 327.28 66.72 L 333.28 72.72 L 327.28 78.72 L 321.28 72.72 Z"/>
+      <path d="M 200 14 L 206 20 L 200 26 L 194 20 Z"/>
+      <path d="M 72.72 66.72 L 78.72 72.72 L 72.72 80.72 L 66.72 72.72 Z"/>
+      <path d="M 20 194 L 26 200 L 20 206 L 14 200 Z"/>
+      <path d="M 72.72 333.28 L 78.72 327.28 L 72.72 321.28 L 66.72 327.28 Z"/>
+      <path d="M 200 386 L 206 380 L 200 374 L 194 380 Z"/>
+      <path d="M 333.28 333.28 L 327.28 327.28 L 333.28 321.28 L 339.28 327.28 Z"/>
+      <circle cx="380" cy="200" r="2"/>
+      <circle cx="327.28" cy="72.72" r="2"/>
+      <circle cx="200" cy="20" r="2"/>
+      <circle cx="72.72" cy="72.72" r="2"/>
+      <circle cx="20" cy="200" r="2"/>
+      <circle cx="72.72" cy="327.28" r="2"/>
+      <circle cx="200" cy="380" r="2"/>
+      <circle cx="327.28" cy="327.28" r="2"/>
+    </g>
+    <g fill="none" stroke="#111" stroke-width="2" stroke-linecap="square">
+      <line x1="200" y1="34" x2="200" y2="40"/>
+      <line x1="200" y1="360" x2="200" y2="372"/>
+      <line x1="34" y1="200" x2="40" y2="200"/>
+      <line x1="360" y1="200" x2="372" y2="200"/>
+    </g>
+    <circle cx="200" cy="200" r="160" fill="none" stroke="#111" stroke-width="1.5"/>
+    <line x1="80" y1="300" x2="320" y2="300" stroke="#111" stroke-width="2"/>
+    <g fill="none" stroke="#111" stroke-width="4" stroke-linejoin="miter" stroke-linecap="square">
+      <path d="M 91 300 L 91 268 L 126 268 L 126 300"/>
+      <path d="M 130 300 L 130 248 L 152 248 L 152 228 L 160 228 L 160 300"/>
+      <path d="M 164 300 L 164 210 L 173 210 L 173 188 L 180 188 L 180 168 L 184 168 L 184 300"/>
+      <path d="M 188 300 L 200 44 L 212 300 Z"/>
+      <path d="M 184 300 L 190 280 L 210 280 L 216 300"/>
+      <path d="M 216 300 L 216 168 L 220 168 L 220 188 L 227 188 L 227 210 L 236 210 L 236 300"/>
+      <path d="M 240 300 L 240 228 L 248 228 L 248 248 L 270 248 L 270 300"/>
+      <path d="M 274 300 L 274 268 L 309 268 L 309 300"/>
+    </g>
+  </svg>
+
+  <h1>City-scale intelligence,<br>built for civic infrastructure.</h1>
+  <p>SKYLINE AI turns urban data into clear, actionable signal — for city planners, transit teams, and the people who keep cities running.</p>
+  <div class="hero-cta-row">
+    <a href="#" class="btn btn-primary">Start Free Trial</a>
+    <a href="#" class="btn btn-ghost">Watch Demo</a>
+  </div>
+</section>
+
+<section class="feature-row">
+  <div class="feature">
+    <div class="label">Signal</div>
+    <h3>Real-time urban pulse</h3>
+    <p>Live telemetry from transit, traffic, utilities, and weather — fused into one operational view.</p>
+  </div>
+  <div class="feature">
+    <div class="label">Decisions</div>
+    <h3>Operator-grade workflows</h3>
+    <p>Routing, dispatch, and incident response with audit trails and human-in-the-loop overrides.</p>
+  </div>
+  <div class="feature">
+    <div class="label">Trust</div>
+    <h3>Built for public sector</h3>
+    <p>SOC 2 Type II, FedRAMP Moderate, and jurisdiction-aware data residency. No training on your data.</p>
+  </div>
+</section>
+
+</body>
+</html>
