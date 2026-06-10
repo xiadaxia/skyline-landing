@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0032)https://skylineintelligence.top/ -->
-<html lang="en" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="One API for every major AI model. Intelligent routing that automatically selects the optimal model for your task.">
@@ -24,18 +24,6 @@
         }
 
         :root {
-            --bg-primary: #000000;
-            --bg-secondary: #000000;
-            --bg-tertiary: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #afafaf;
-            --accent: #ffffff;
-            --accent-hover: #e2e2e2;
-            --success: #32d74b;
-            --border: #333333;
-        }
-
-        [data-theme="light"] {
             --bg-primary: #fbfbfd;
             --bg-secondary: #ffffff;
             --bg-tertiary: #f5f5f7;
@@ -43,6 +31,7 @@
             --text-secondary: #86868b;
             --accent: #000000;
             --accent-hover: #333333;
+            --success: #1c7c46;
             --border: #d2d2d7;
         }
 
@@ -120,10 +109,15 @@
             display: block;
         }
 
-        /* Default (light theme): show ink version with black lines */
-        .logo-mark--reverse { display: none; }
-        [data-theme="dark"] .logo-mark--ink { display: none; }
-        [data-theme="dark"] .logo-mark--reverse { display: block; }
+        .logo-wordmark {
+            height: 1.25rem;
+            width: auto;
+            flex-shrink: 0;
+            display: block;
+        }
+
+        /* Brand mark — light theme only (black lines on light bg) */
+        .logo-mark {
 
         .logo-wordmark {
             height: 1.25rem;
@@ -131,10 +125,6 @@
             flex-shrink: 0;
             display: block;
             filter: none;
-        }
-
-        [data-theme="dark"] .logo-wordmark {
-            filter: invert(1);
         }
 
         nav ul {
@@ -281,27 +271,6 @@
             }
         }
 
-        /* Theme toggle */
-        .theme-toggle {
-            color: var(--text-secondary);
-            font-size: 14px;
-            cursor: pointer;
-            transition: color 0.3s;
-            background: none;
-            border: none;
-            padding: 0;
-        }
-
-        .theme-toggle:hover {
-            color: var(--text-primary);
-        }
-
-        .theme-toggle:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-
         .hero {
             padding: 160px 24px 80px;
             text-align: center;
@@ -330,51 +299,51 @@
             opacity: 0;
         }
 
-        [data-theme="light"] .hero h1 {
+        .hero h1 {
             color: #000000;
             -webkit-text-fill-color: #000000;
         }
 
-        /* Pricing - Light theme */
-        [data-theme="light"] .pricing-card {
+        /* Pricing */
+        .pricing-card {
             background: #ffffff;
             border-color: #e5e5e7;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
-        [data-theme="light"] .pricing-card::before {
+        .pricing-card::before {
             background: #000000;
         }
 
-        [data-theme="light"] .pricing-card.featured {
+        .pricing-card.featured {
             background: #ffffff;
             border-color: var(--accent);
         }
 
-        [data-theme="light"] .pricing-card:hover {
+        .pricing-card:hover {
             transform: translateY(-4px);
             border-color: var(--accent);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        [data-theme="light"] .pricing-card.featured .badge {
+        .pricing-card.featured .badge {
             background: var(--accent); color: var(--bg-primary);
         }
 
-        [data-theme="light"] .pricing-card h3 {
+        .pricing-card h3 {
             color: #1d1d1f;
         }
 
-        [data-theme="light"] .pricing-card .price {
+        .pricing-card .price {
             color: #1d1d1f;
         }
 
-        [data-theme="light"] .pricing-card ul li {
+        .pricing-card ul li {
             color: #6e6e73;
             border-color: #e5e5e7;
         }
 
-        [data-theme="light"] .pricing-card ul li::before {
+        .pricing-card ul li::before {
             color: var(--success);
         }
 
@@ -1539,8 +1508,7 @@
     <nav>
         <div class="container">
             <a href="https://skylineintelligence.top/#" class="logo">
-                <img class="logo-mark logo-mark--ink" src="./linework-logo/logo-skyline.svg" alt="SKYLINE AI" width="32" height="32">
-                <img class="logo-mark logo-mark--reverse" src="./linework-logo/logo-skyline-reverse.svg" alt="SKYLINE AI" width="32" height="32">
+                <img class="logo-mark" src="./linework-logo/logo-skyline.svg" alt="SKYLINE AI" width="32" height="32">
                 <img class="logo-wordmark" src="./linework-logo/wordmark-skyline-ai.svg" alt="SKYLINE AI" height="20">
             </a>
             <div class="nav-right">
@@ -1844,36 +1812,6 @@
     </footer>
 
     <script>
-        // Theme toggle
-        function toggleTheme() {
-            const html = document.documentElement;
-            const btn = document.querySelector('.theme-toggle');
-            
-            if (html.dataset.theme === 'light') {
-                html.dataset.theme = 'dark';
-                btn.textContent = '🌙';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                html.dataset.theme = 'light';
-                btn.textContent = '☀️';
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
-        // Initialize theme from localStorage
-        (function initTheme() {
-            const saved = localStorage.getItem('theme') || 'dark';
-            const btn = document.querySelector('.theme-toggle');
-            
-            if (saved === 'light') {
-                document.documentElement.dataset.theme = 'light';
-                btn.textContent = '☀️';
-            } else {
-                document.documentElement.dataset.theme = 'dark';
-                btn.textContent = '🌙';
-            }
-        })();
-
         // Mobile menu toggle
         function toggleMenu() {
             const navUl = document.querySelector('nav ul');
