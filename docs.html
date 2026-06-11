@@ -1,45 +1,1032 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SKYLINE AI developer docs for one OpenAI-compatible API, smart routing, model access, billing, and usage analytics.">
-  <meta name="theme-color" content="#fbfbfd">
+  <meta name="description" content="OpenAI-compatible gateway, smart routing, and usage-aware billing.">
+  <meta name="theme-color" content="#0a0c0f" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
   <title>SKYLINE AI Docs</title>
-  <link rel="stylesheet" href="./styles.css">
   <link rel="icon" type="image/svg+xml" href="./linework-logo/logo-stamp.svg">
+  <script>
+    /* FOUC-safe theme init */
+    (function () {
+      try {
+        var stored = localStorage.getItem('skyline-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <style>
+    /* === SKYLINE AI Docs — Dark-first with light fallback === */
+
+    :root {
+      --bg: #0a0c0f;
+      --ink: #e8e4d8;
+      --muted: #888888;
+      --dim: #6a6a6a;
+      --rule: #1c1f25;
+      --card: #13161b;
+      --code-bg: #050608;
+      --code-ink: #d4d4d4;
+      --code-rule: #1f242c;
+      --green: #1f3fa3;
+      --btn-on-accent: #ffffff;
+      --status-bg: var(--bg);
+      --status-ink: var(--ink);
+      --status-dim: #555;
+      --header-bg: rgba(10, 12, 15, 0.88);
+      --table-tint: rgba(255, 255, 255, 0.035);
+      --code-inline-bg: rgba(255, 255, 255, 0.07);
+      --mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Inter", "Segoe UI", sans-serif;
+    }
+    [data-theme="light"] {
+      --bg: #f5f1e8;
+      --ink: #111111;
+      --muted: #666666;
+      --dim: #5a5a5a;
+      --rule: #d8d2c4;
+      --card: #ffffff;
+      --code-bg: #0f1115;
+      --code-ink: #e6e6e6;
+      --code-rule: #1f242c;
+      --green: #1f3fa3;
+      --green-hover: #16307f;
+      --status-bg: var(--bg);
+      --status-ink: var(--ink);
+      --status-dim: #555;
+      --header-bg: rgba(245, 241, 232, 0.92);
+      --table-tint: rgba(0, 0, 0, 0.04);
+      --code-inline-bg: rgba(0, 0, 0, 0.06);
+    }
+
+    /* === RESET & BASE === */
+    /* === Iter 12: Scroll progress bar === */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--green);
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      z-index: 200;
+      transition: transform 80ms linear;
+      pointer-events: none;
+    }
+    /* === Iter 13: Back-to-top button === */
+    .back-to-top {
+      position: fixed;
+      right: 24px; bottom: 24px;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 2px;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 90;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity 240ms ease, transform 240ms ease, background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+    }
+    .back-to-top.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .back-to-top:hover { background: var(--green); color: var(--btn-on-accent); border-color: var(--green); }
+    .back-to-top:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+    @media (max-width: 640px) { .back-to-top { right: 16px; bottom: 16px; } }
+    /* === Iter 14: Skip-to-content link === */
+    .skip-link {
+      position: fixed;
+      top: 8px; left: 8px;
+      padding: 8px 14px;
+      background: var(--green); color: var(--btn-on-accent);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 0;
+      z-index: 300;
+      transform: translateY(-200%);
+      transition: transform 200ms ease;
+    }
+    .skip-link:focus { transform: translateY(0); outline: 2px solid var(--green); outline-offset: 2px; }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+      transition: background-color 320ms ease, color 240ms ease;
+    }
+    a { color: inherit; text-decoration: none; }
+    code, pre, kbd, .mono { font-family: var(--mono); }
+    .dim { color: var(--dim); }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+    /* === STATUS BAR REMOVED (Iter 17) — kept .status-dot + @keyframes for footer badge === */
+    .status-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: 1px;
+      box-shadow: 0 0 0 2px rgba(91, 158, 255, 0.2);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    [data-theme="light"] .status-dot { box-shadow: 0 0 0 2px rgba(31, 63, 163, 0.2); }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 2px rgba(91, 158, 255, 0.2); } 50% { box-shadow: 0 0 0 4px rgba(91, 158, 255, 0.1); } }
+
+    /* === THEME TOGGLE (icon-only button) === */
+    .theme-toggle {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--code-inline-bg);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      color: var(--dim);
+      padding: 0;
+      cursor: pointer;
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+    }
+    .theme-toggle:hover { background: var(--table-tint); border-color: var(--ink); color: var(--ink); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    /* Icon swap: dark mode shows sun (click to go light), light mode shows moon (click to go dark) */
+    .theme-icon {
+      position: absolute;
+      transition: opacity 200ms ease, transform 280ms cubic-bezier(.4, 0, .2, 1);
+    }
+    .theme-toggle .theme-icon[data-icon="moon"] { opacity: 0; transform: rotate(-90deg) scale(0.7); }
+    [data-theme="light"] .theme-toggle .theme-icon[data-icon="moon"] { opacity: 1; transform: rotate(0) scale(1); }
+    .theme-toggle .theme-icon[data-icon="sun"] { opacity: 1; transform: rotate(0) scale(1); }
+    [data-theme="light"] .theme-toggle .theme-icon[data-icon="sun"] { opacity: 0; transform: rotate(90deg) scale(0.7); }
+
+    /* Nav variant — only changes the flex/visual-context, sizing same as base */
+    .theme-toggle.theme-toggle-nav { /* no overrides needed; sizing lives on .theme-toggle */ }
+    .theme-toggle.theme-toggle-icon { /* marker class */ }
+
+    /* === HEADER === */
+    .site-header {
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      position: sticky; top: 0; z-index: 50;
+      transition: background-color 320ms ease, border-color 240ms ease;
+    }
+    .site-header .container { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+    .brand { display: flex; align-items: center; gap: 10px; padding: 4px 6px; margin: -4px -6px; border-radius: 2px; }
+    .brand-mark { width: 28px; height: 28px; flex-shrink: 0; display: block; }
+    .brand-wordmark {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: 0.1em;
+      padding-left: 10px;
+      border-left: 2px solid var(--ink);
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      transition: color 320ms ease, border-color 320ms ease, transform 280ms cubic-bezier(.4, 0, .2, 1);
+      transform-origin: left center;
+    }
+    .brand-wordmark svg { display: block; }
+    .brand:hover .brand-wordmark { transform: scaleX(1.04); color: var(--green); }
+    .brand:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+    .brand-version {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--muted);
+      padding-left: 10px;
+      margin-left: 4px;
+      border-left: 1px solid var(--rule);
+      transition: color 200ms ease, border-color 240ms ease;
+    }
+    .brand:hover .brand-version { color: var(--green); }
+    .version-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+      animation: dot-pulse 2s ease-in-out infinite;
+    }
+    @keyframes dot-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.8); }
+    }
+    @keyframes wm-breathe {
+      0%, 100% { opacity: 0.88; }
+      50% { opacity: 1; }
+    }
+    .brand-wordmark { animation: wm-breathe 5.5s ease-in-out infinite; }
+    .brand:hover .brand-wordmark { animation: none; }
+    @media (max-width: 640px) { .brand-wordmark { display: none; } .brand-version { display: none; } }
+
+    .nav { display: flex; gap: 32px; margin-left: auto; }
+    .nav a {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 500;
+      position: relative;
+      padding: 4px 0;
+      transition: color 200ms ease;
+    }
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -22px;
+      height: 2px;
+      background: var(--ink);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 160ms;
+    }
+    .nav a:hover::after { transform: scaleX(1); }
+    .nav a.is-current::after { transform: scaleX(1); }
+
+    .nav-cta { display: flex; gap: 8px; align-items: center; margin-left: 48px; margin-right: 6px; }
+
+    /* === BUTTONS === */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--green); color: var(--btn-on-accent); border: 1px solid var(--green); }
+    .btn-primary:hover { background: var(--green-hover); color: var(--btn-on-accent); border-color: var(--green-hover); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+    .btn-ghost:hover { background: var(--ink); color: var(--bg); }
+
+    /* === HERO === */
+    .hero {
+      padding: 96px 0 64px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .hero .container { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
+    @media (max-width: 1000px) { .hero .container { grid-template-columns: 1fr; gap: 40px; } }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .eyebrow::before { content: "//"; font-weight: 700; color: var(--ink); }
+    .hero h1 {
+      font-size: 64px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      margin: 0 0 24px;
+    }
+    .hero-subtitle {
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin: 0 0 32px;
+      max-width: 580px;
+    }
+    .hero-actions { display: flex; gap: 12px; margin-bottom: 40px; }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--ink);
+      padding-top: 24px;
+    }
+    .hero-stats > div { padding-right: 16px; }
+    .hero-stats > div:not(:last-child) { border-right: 1px solid var(--rule); padding-right: 16px; }
+    .hero-stats > div:not(:first-child) { padding-left: 16px; }
+    .hero-stats strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .hero-stats span {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* === HERO PANEL (flow card preview) === */
+    .hero-panel {
+      background: var(--card);
+      border: 1px solid var(--ink);
+      padding: 28px;
+      position: relative;
+      transition: background-color 320ms ease, border-color 240ms ease;
+    }
+    .hero-panel::before {
+      content: "FLOW //";
+      position: absolute;
+      top: -10px; left: 16px;
+      background: var(--bg);
+      padding: 0 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--ink);
+      transition: background-color 320ms ease, color 240ms ease;
+    }
+    .flow-card {
+      padding: 14px 16px;
+      border: 1px solid var(--ink);
+      background: var(--bg);
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 12px;
+      align-items: center;
+      transition: background-color 320ms ease, border-color 240ms ease;
+    }
+    .flow-card span {
+      grid-row: 1 / 3;
+      font-family: var(--mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .flow-card strong { font-size: 14px; font-weight: 700; }
+    .flow-card small {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+    .flow-card.flow-card-router {
+      background: var(--green); color: var(--btn-on-accent);
+      transition: background-color 320ms ease, color 240ms ease;
+    }
+    .flow-card.flow-card-router small { color: var(--btn-on-accent); opacity: 0.85; }
+
+    .flow-line {
+      height: 18px;
+      width: 1px;
+      background: var(--ink);
+      margin: 0 0 0 24px;
+      transition: background-color 320ms ease;
+    }
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .model-pill {
+      padding: 10px 12px;
+      background: var(--card);
+      border: 1px solid var(--ink);
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: background-color 320ms ease, border-color 240ms ease;
+    }
+    .hero-panel pre {
+      margin: 16px 0 0;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      padding: 16px;
+      font-size: 12px;
+      line-height: 1.6;
+      border: 1px solid var(--rule);
+      white-space: pre;
+      overflow-x: auto;
+      transition: background-color 320ms ease, color 240ms ease, border-color 240ms ease;
+    }
+    .hero-panel pre code { color: inherit; }
+
+    /* === DOCS LAYOUT (sidebar + content) === */
+    .docs-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 64px;
+      padding: 64px 0 96px;
+    }
+    @media (max-width: 900px) { .docs-layout { grid-template-columns: 1fr; gap: 32px; } }
+
+    /* sidebar */
+    .docs-sidebar {
+      position: sticky;
+      top: 96px;
+      align-self: start;
+    }
+    @media (max-width: 900px) { .docs-sidebar { position: static; } }
+    .search-box {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--ink);
+    }
+    .search-box input {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      padding: 8px 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--ink);
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      outline: none;
+      transition: background-color 320ms ease, color 240ms ease, border-color 240ms ease;
+    }
+    .search-box input::placeholder { color: var(--dim); }
+    .search-box input:focus { border-color: var(--ink); }
+    .side-nav { display: flex; flex-direction: column; gap: 2px; }
+    .side-nav a {
+      display: block;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      border-left: 2px solid transparent;
+      transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+    }
+    .side-nav a:hover { background: var(--card); border-left-color: var(--ink); }
+
+    /* content */
+    .docs-content { min-width: 0; max-width: 800px; }
+    .doc-section {
+      padding: 0 0 64px;
+      margin-bottom: 64px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .doc-section:last-child { border-bottom: 0; margin-bottom: 0; }
+    .doc-section h2 {
+      font-size: 40px;
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin: 0 0 20px;
+    }
+    .doc-section p { color: var(--muted); line-height: 1.65; }
+    .doc-section p code,
+    .doc-card p code,
+    .doc-section li p code,
+    .note-card p code {
+      font-size: 12px;
+      padding: 1px 6px;
+      background: var(--code-inline-bg);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      color: var(--ink);
+      transition: background-color 320ms ease, color 240ms ease, border-color 240ms ease;
+    }
+    .doc-section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      letter-spacing: -0.01em;
+    }
+
+    /* path grid */
+    .path-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border: 1px solid var(--ink);
+      margin-top: 32px;
+    }
+    .path-card {
+      padding: 24px 20px;
+      border-right: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      background: var(--card);
+      display: block;
+      color: inherit;
+      transition: background-color 280ms ease, border-color 240ms ease;
+    }
+    .path-card:nth-child(2n) { border-right: 0; }
+    .path-card:nth-last-child(-n+2) { border-bottom: 0; }
+    .path-card span {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 12px;
+    }
+    .path-card strong { display: block; font-size: 16px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .path-card small { display: block; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .path-card:hover { background: var(--bg); }
+
+    /* step list (numbered) */
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0;
+      counter-reset: step;
+    }
+    .step-list li {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      padding: 20px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .step-list li:last-child { border-bottom: 1px solid var(--rule); }
+    .step-list li > span {
+      grid-row: 1;
+      width: 36px; height: 36px;
+      border: 1px solid var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .step-list li > div { grid-row: 1; grid-column: 2; }
+    .step-list strong { display: block; font-size: 16px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .step-list p { font-size: 14px; line-height: 1.6; margin: 0; }
+
+    /* code tabs */
+    .code-tabs { margin: 24px 0 0; }
+    .tab-list {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--ink);
+      border-bottom: 0;
+    }
+    .tab-button {
+      flex: 0 0 auto;
+      padding: 10px 18px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--card);
+      border: 0;
+      border-right: 1px solid var(--rule);
+      cursor: pointer;
+      transition: background 200ms ease, color 200ms ease, border-color 240ms ease;
+    }
+    .tab-button:last-child { border-right: 0; }
+    .tab-button.active { background: var(--green); color: var(--btn-on-accent); }
+    .tab-button:hover:not(.active) { background: var(--table-tint); color: var(--ink); }
+    .code-panel {
+      display: none;
+      position: relative;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      border: 1px solid var(--ink);
+      transition: background-color 320ms ease, color 240ms ease, border-color 240ms ease;
+    }
+    .code-panel.active { display: block; }
+    .code-panel pre {
+      margin: 0;
+      padding: 20px 24px;
+      font-size: 12.5px;
+      line-height: 1.7;
+      white-space: pre;
+      overflow-x: auto;
+    }
+    .code-panel pre code { color: inherit; }
+    .copy-button {
+      position: absolute;
+      top: 12px; right: 12px;
+      padding: 5px 10px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--code-ink);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 200ms ease, border-color 200ms ease;
+    }
+    .copy-button:hover { background: rgba(255,255,255,0.18); }
+
+    /* endpoint table */
+    .endpoint-table {
+      display: grid;
+      grid-template-columns: 1fr;
+      border: 1px solid var(--ink);
+      margin: 24px 0 0;
+    }
+    .endpoint-table > [role="row"] {
+      display: grid;
+      grid-template-columns: 80px 220px 1fr;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 13px;
+      transition: background-color 320ms ease, border-color 240ms ease;
+    }
+    .endpoint-table > [role="row"]:last-child { border-bottom: 0; }
+    .endpoint-table strong[role="cell"] {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--btn-on-accent);
+      text-align: center;
+      padding: 4px 0;
+      background: var(--green);
+      border: 1px solid var(--green);
+      transition: background-color 320ms ease, color 240ms ease, border-color 240ms ease;
+    }
+    .endpoint-table code[role="cell"] {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--ink);
+      background: transparent;
+      border: 0;
+      padding: 0;
+    }
+    .endpoint-table span[role="cell"] { color: var(--muted); }
+    .endpoint-table.compact > [role="row"] { padding: 10px 20px; }
+    @media (max-width: 700px) {
+      .endpoint-table > [role="row"] { grid-template-columns: 64px 1fr; row-gap: 4px; }
+      .endpoint-table span[role="cell"] { grid-column: 2; }
+    }
+
+    /* note grid */
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 24px 0 0;
+    }
+    .note-card {
+      padding: 20px;
+      background: var(--card);
+      border: 1px solid var(--ink);
+      transition: background-color 320ms ease, border-color 240ms ease;
+    }
+    .note-card strong {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .note-card p { font-size: 13px; line-height: 1.55; margin: 0; }
+
+    @media (max-width: 800px) { .note-grid { grid-template-columns: 1fr; } }
+
+    /* split grid */
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 24px 0 0;
+    }
+    .doc-card {
+      padding: 20px;
+      background: var(--card);
+      border: 1px solid var(--ink);
+      transition: background-color 320ms ease, border-color 240ms ease;
+    }
+    .doc-card pre {
+      margin: 12px 0 0;
+      padding: 14px 16px;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: pre;
+      overflow-x: auto;
+      transition: background-color 320ms ease, color 240ms ease;
+    }
+    .doc-card pre code { color: inherit; }
+    .doc-card p { font-size: 13px; line-height: 1.55; margin: 0 0 4px; }
+    @media (max-width: 700px) { .split-grid { grid-template-columns: 1fr; } }
+
+    /* routing strip */
+    .routing-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--ink);
+      margin: 24px 0 0;
+    }
+    .routing-strip > div {
+      padding: 16px 20px;
+      border-right: 1px solid var(--ink);
+      background: var(--card);
+      transition: background-color 320ms ease, border-color 240ms ease;
+    }
+    .routing-strip > div:last-child { border-right: 0; }
+    .routing-strip span {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .routing-strip strong { display: block; font-size: 13px; font-weight: 700; line-height: 1.3; }
+    @media (max-width: 700px) { .routing-strip { grid-template-columns: 1fr 1fr; }
+      .routing-strip > div:nth-child(2) { border-right: 0; }
+      .routing-strip > div:nth-child(1), .routing-strip > div:nth-child(2) { border-bottom: 1px solid var(--ink); }
+    }
+
+    /* metric row */
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .metric-row > div {
+      padding: 20px;
+      border: 1px solid var(--ink);
+      background: var(--card);
+      transition: background-color 320ms ease, border-color 240ms ease;
+    }
+    .metric-row span {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .metric-row strong { display: block; font-size: 16px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .metric-row p { font-size: 13px; line-height: 1.55; margin: 0; }
+    @media (max-width: 800px) { .metric-row { grid-template-columns: 1fr; } }
+
+    /* console grid */
+    .console-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 24px 0 0;
+    }
+    .console-card {
+      padding: 20px;
+      background: var(--card);
+      border: 1px solid var(--ink);
+      transition: background-color 320ms ease, border-color 240ms ease;
+    }
+    .console-card span {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 2px 6px;
+      border: 1px solid var(--ink);
+      margin-bottom: 10px;
+    }
+    .console-card strong { display: block; font-size: 16px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .console-card p { font-size: 13px; line-height: 1.5; margin: 0; }
+    @media (max-width: 800px) { .console-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 540px) { .console-grid { grid-template-columns: 1fr; } }
+
+    /* checklist */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--ink);
+      margin: 24px 0 0;
+    }
+    .checklist label {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 14px;
+      line-height: 1.5;
+      cursor: pointer;
+      transition: background 200ms ease, border-color 240ms ease;
+    }
+    .checklist label:last-child { border-bottom: 0; }
+    .checklist label:hover { background: var(--card); }
+    .checklist input[type="checkbox"] { width: 18px; height: 18px; margin: 0; cursor: pointer; accent-color: var(--ink); }
+    .checklist label code {
+      font-size: 12px;
+      padding: 1px 6px;
+      background: var(--code-inline-bg);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+    }
+
+    /* empty search */
+    .empty-search {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      padding: 32px;
+      text-align: center;
+      border: 1px dashed var(--rule);
+    }
+
+    /* === FOOTER === */
+    .site-footer {
+      background: var(--bg);
+      color: var(--ink);
+      padding: 24px 0;
+      border-top: 1px solid var(--rule);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1px;
+      transition: background-color 320ms ease, color 240ms ease, border-color 240ms ease;
+    }
+    .site-footer .container { display: flex; justify-content: center; align-items: center; }
+    .site-footer .dim { color: var(--muted); }
+    .site-footer span { display: block; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .hero { padding: 64px 0 40px; }
+      .hero h1 { font-size: 40px; }
+      .doc-section h2 { font-size: 28px; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; }
+      .nav { display: none; }
+      .path-grid { grid-template-columns: 1fr; }
+      .path-card { border-right: 0; border-bottom: 1px solid var(--ink); }
+      .path-card:last-child { border-bottom: 0; }
+      .status-info { display: none; }
+    }
+
+    /* === Iter 15: prefers-reduced-motion === */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .status-dot { animation: none !important; }
+      .scroll-progress { transition: none !important; }
+      .back-to-top { transition: opacity 0.001ms !important; transform: none !important; }
+    }
+    html[data-reduced-motion="true"] *,
+    html[data-reduced-motion="true"] *::before,
+    html[data-reduced-motion="true"] *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    html[data-reduced-motion="true"] .status-dot { animation: none !important; }
+
+    /* === Iter 16: Print stylesheet === */
+    @media print {
+      :root, [data-theme="light"], [data-theme="dark"] {
+        --bg: #ffffff;
+        --ink: #000000;
+        --muted: #444;
+        --dim: #666;
+        --rule: #ccc;
+        --card: #ffffff;
+        --code-bg: #f4f4f4;
+        --code-ink: #000;
+        --green: #1f3fa3;
+      }
+      body { background: #fff; color: #000; }
+      .scroll-progress, .back-to-top, .skip-link,
+      .theme-toggle, .status-dot { display: none !important; }
+      .site-header { position: static; background: #fff; border-bottom: 2px solid #000; }
+      .docs-sidebar { display: none; }
+      .docs-layout { grid-template-columns: 1fr; }
+      .hero, .doc-section { padding: 24px 0; page-break-inside: avoid; }
+      .hero h1, .doc-section h2 { color: #000; }
+      .path-card, .note-card, .doc-card, .console-card, .routing-strip > div,
+      .metric-row > div, .endpoint-table, .code-panel, .checklist {
+        background: #fff !important; border: 1px solid #000 !important; page-break-inside: avoid;
+      }
+      .code-panel pre { background: #f4f4f4 !important; color: #000 !important; }
+      a { color: #000 !important; text-decoration: underline; }
+      .doc-section { border-bottom: 1px solid #000; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <nav class="top-nav" aria-label="Primary navigation">
-      <a class="brand" href="https://skylineintelligence.top/" aria-label="SKYLINE AI home">
-        <img class="brand-mark brand-mark--ink" src="./linework-logo/logo-skyline.svg" alt="" width="32" height="32">
-        <img class="brand-mark brand-mark--reverse" src="./linework-logo/logo-skyline-reverse.svg" alt="" width="32" height="32">
-        <img class="brand-wordmark" src="./linework-logo/wordmark-skyline-ai.svg" alt="SKYLINE AI" height="20">
-      </a>
-      <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-links">
-        <span></span>
-        <span></span>
-      </button>
-      <div class="nav-links" id="primary-links">
-        <a href="https://skylineintelligence.top/#features">Features</a>
-        <a href="https://skylineintelligence.top/#models">Models</a>
-        <a href="https://skylineintelligence.top/#pricing">Pricing</a>
-        <a href="./docs.html">Docs</a>
-        <a class="nav-cta" href="https://skylineintelligence.top/#">Get Started</a>
-      </div>
-    </nav>
-  </header>
 
-  <main>
-    <section class="hero" id="docs">
+<!-- ===== Iter 14: Skip-to-content (a11y) ===== -->
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ===== Iter 12: Scroll progress bar ===== -->
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<!-- ===== STATUS BAR REMOVED (Iter 17) ===== -->
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="https://skylineintelligence.top/" aria-label="SKYLINE AI — home">
+      <img class="brand-mark"
+           src="./linework-logo/logo-skyline-reverse.svg"
+           data-logo-light="./linework-logo/logo-skyline.svg"
+           data-logo-dark="./linework-logo/logo-skyline-reverse.svg"
+           alt="" width="28" height="28">
+      <span class="brand-wordmark" aria-label="SKYLINE INTELLIGENCE">SKYLINE<br>INTELLIGENCE</span>
+    </a>
+    <nav class="nav">
+      <a href="https://skylineintelligence.top/#features">Features</a>
+      <a href="https://skylineintelligence.top/#models">Models</a>
+      <a href="https://skylineintelligence.top/#pricing">Pricing</a>
+      <a href="./docs.html" class="is-current">Docs</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="https://skylineintelligence.top/#" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="theme-toggle theme-toggle-nav theme-toggle-icon" type="button" data-theme-toggle aria-label="Toggle theme">
+      <svg class="theme-icon" data-icon="sun" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="8" cy="8" r="2.6"/>
+        <line x1="8" y1="1" x2="8" y2="2.6"/>
+        <line x1="8" y1="13.4" x2="8" y2="15"/>
+        <line x1="1" y1="8" x2="2.6" y2="8"/>
+        <line x1="13.4" y1="8" x2="15" y2="8"/>
+        <line x1="2.9" y1="2.9" x2="4.1" y2="4.1"/>
+        <line x1="11.9" y1="11.9" x2="13.1" y2="13.1"/>
+        <line x1="2.9" y1="13.1" x2="4.1" y2="11.9"/>
+        <line x1="11.9" y1="4.1" x2="13.1" y2="2.9"/>
+      </svg>
+      <svg class="theme-icon" data-icon="moon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M13.4 9.8 A 6 6 0 1 1 6.2 2.6 A 4.4 4.4 0 0 0 13.4 9.8 Z"/>
+        <circle cx="11.5" cy="3.2" r="0.5" fill="currentColor" stroke="none"/>
+        <circle cx="13" cy="5.4" r="0.4" fill="currentColor" stroke="none"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="main" tabindex="-1">
+    <div class="container">
       <div class="hero-copy">
         <p class="eyebrow">Developer docs</p>
         <h1>The Smart Router for LLMs.</h1>
         <p class="hero-subtitle">SKYLINE AI gives customer applications a stable OpenAI-compatible gateway, smart model routing, quota-aware billing, and usage visibility across Claude, GPT, Gemini, DeepSeek, Qwen, and local providers.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#quickstart">Start in minutes</a>
-          <a class="button button-outline" href="#api-reference">API reference</a>
+          <a class="btn btn-primary" href="#quickstart">Start in minutes</a>
+          <a class="btn btn-ghost" href="#api-reference">API reference</a>
         </div>
         <div class="hero-stats" aria-label="SKYLINE AI product signals">
           <div>
@@ -79,98 +1066,100 @@
 Authorization: Bearer sk_aibrg_...
 model: "auto"</code></pre>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="docs-layout" id="overview">
-      <aside class="docs-sidebar" aria-label="Documentation sections">
-        <label class="search-box">
-          <span>Search docs</span>
-          <input type="search" id="docs-search" placeholder="routing, usage, errors">
-        </label>
-        <nav class="side-nav">
-          <a href="#quickstart">First API call</a>
-          <a href="#connect">Connect with SDKs</a>
-          <a href="#api-reference">Runtime API</a>
-          <a href="#models">Models and routing</a>
-          <a href="#billing">Billing and usage</a>
-          <a href="#console">Console workflow</a>
-          <a href="#errors">Errors and fallback</a>
-          <a href="#checklist">Go-live preflight</a>
-        </nav>
-      </aside>
+  <!-- ===== DOCS LAYOUT ===== -->
+  <section class="docs-layout" id="overview">
+    <aside class="docs-sidebar" aria-label="Documentation sections">
+      <label class="search-box">
+        <span>Search docs</span>
+        <input type="search" id="docs-search" placeholder="routing, usage, errors">
+      </label>
+      <nav class="side-nav">
+        <a href="#quickstart">First API call</a>
+        <a href="#connect">Connect with SDKs</a>
+        <a href="#api-reference">Runtime API</a>
+        <a href="#models">Models and routing</a>
+        <a href="#billing">Billing and usage</a>
+        <a href="#console">Console workflow</a>
+        <a href="#errors">Errors and fallback</a>
+        <a href="#checklist">Go-live preflight</a>
+      </nav>
+    </aside>
 
-      <div class="docs-content">
-        <section class="doc-section intro-section" data-searchable="docs overview one api smart router openai compatible">
-          <p class="eyebrow">Build with SKYLINE AI</p>
-          <h2>Recommended path for new developers</h2>
-          <p>Follow this sequence when integrating a new app. It mirrors the customer console: create credentials, confirm model access, make one request, then monitor usage and quota.</p>
-          <div class="path-grid">
-            <a class="path-card" href="#quickstart">
-              <span>1</span>
-              <strong>Make your first API call</strong>
-              <small>Create or rotate a key, copy the Base URL, and call chat completions.</small>
-            </a>
-            <a class="path-card" href="#api-reference">
-              <span>2</span>
-              <strong>Understand the runtime API</strong>
-              <small>Use OpenAI-compatible chat first; add Responses or Messages when needed.</small>
-            </a>
-            <a class="path-card" href="#models">
-              <span>3</span>
-              <strong>Choose a model or route automatically</strong>
-              <small>Use enabled model codes from your organization or ask the router to select.</small>
-            </a>
-            <a class="path-card" href="#billing">
-              <span>4</span>
-              <strong>Watch spend and reliability</strong>
-              <small>Review request count, tokens, credits, latency, and degraded fallback headers.</small>
-            </a>
-          </div>
-        </section>
+    <div class="docs-content">
+      <section class="doc-section intro-section" data-searchable="docs overview one api smart router openai compatible">
+        <p class="eyebrow">Build with SKYLINE AI</p>
+        <h2>Recommended path for new developers</h2>
+        <p>Follow this sequence when integrating a new app. It mirrors the customer console: create credentials, confirm model access, make one request, then monitor usage and quota.</p>
+        <div class="path-grid">
+          <a class="path-card" href="#quickstart">
+            <span>1</span>
+            <strong>Make your first API call</strong>
+            <small>Create or rotate a key, copy the Base URL, and call chat completions.</small>
+          </a>
+          <a class="path-card" href="#api-reference">
+            <span>2</span>
+            <strong>Understand the runtime API</strong>
+            <small>Use OpenAI-compatible chat first; add Responses or Messages when needed.</small>
+          </a>
+          <a class="path-card" href="#models">
+            <span>3</span>
+            <strong>Choose a model or route automatically</strong>
+            <small>Use enabled model codes from your organization or ask the router to select.</small>
+          </a>
+          <a class="path-card" href="#billing">
+            <span>4</span>
+            <strong>Watch spend and reliability</strong>
+            <small>Review request count, tokens, credits, latency, and degraded fallback headers.</small>
+          </a>
+        </div>
+      </section>
 
-        <section class="doc-section" id="quickstart" data-searchable="quickstart first api call create key base url curl">
-          <p class="eyebrow">First steps</p>
-          <h2>Make your first API call</h2>
-          <p>The fastest path is to use SKYLINE AI as the base URL for an existing OpenAI-compatible client. The public site is <code>https://skylineintelligence.top/</code>; customer API calls should use <code>https://api.skylineintelligence.top/v1</code>.</p>
-          <ol class="step-list">
-            <li>
-              <span>1</span>
-              <div>
-                <strong>Create an API key</strong>
-                <p>Open <code>API Keys</code>, create a key, and keep the raw key from the one-time creation screen. Default customer scopes include <code>model:invoke</code>, <code>chat:read</code>, and <code>chat:write</code>.</p>
-              </div>
-            </li>
-            <li>
-              <span>2</span>
-              <div>
-                <strong>Copy the Base URL</strong>
-                <p>Use the console connection panel or call <code>GET /api/connection-info</code> with your console session token. The returned <code>baseUrl</code> should be <code>https://api.skylineintelligence.top/v1</code>.</p>
-              </div>
-            </li>
-            <li>
-              <span>3</span>
-              <div>
-                <strong>Send one chat request</strong>
-                <p>Use <code>model: "auto"</code> for router-owned selection, or choose a specific model from <code>/v1/models</code> or the Model Plaza.</p>
-              </div>
-            </li>
-          </ol>
-        </section>
-
-        <section class="doc-section" id="connect" data-searchable="sdk curl python node javascript openai compatible">
-          <p class="eyebrow">Connect</p>
-          <h2>Use existing OpenAI clients</h2>
-          <p>Most apps only need two changes: set <code>baseURL</code> to SKYLINE AI and replace the API key. The request body stays familiar.</p>
-
-          <div class="code-tabs" aria-label="API examples">
-            <div class="tab-list" role="tablist">
-              <button class="tab-button active" type="button" data-tab="curl" role="tab" aria-selected="true">cURL</button>
-              <button class="tab-button" type="button" data-tab="node" role="tab" aria-selected="false">Node.js</button>
-              <button class="tab-button" type="button" data-tab="python" role="tab" aria-selected="false">Python</button>
+      <section class="doc-section" id="quickstart" data-searchable="quickstart first api call create key base url curl">
+        <p class="eyebrow">First steps</p>
+        <h2>Make your first API call</h2>
+        <p>The fastest path is to use SKYLINE AI as the base URL for an existing OpenAI-compatible client. The public site is <code>https://skylineintelligence.top/</code>; customer API calls should use <code>https://api.skylineintelligence.top/v1</code>.</p>
+        <ol class="step-list">
+          <li>
+            <span>1</span>
+            <div>
+              <strong>Create an API key</strong>
+              <p>Open <code>API Keys</code>, create a key, and keep the raw key from the one-time creation screen. Default customer scopes include <code>model:invoke</code>, <code>chat:read</code>, and <code>chat:write</code>.</p>
             </div>
-            <div class="code-panel active" data-panel="curl">
-              <button class="copy-button" type="button" data-copy-target="curl-code">Copy</button>
-              <pre id="curl-code"><code>export SKYLINE_BASE_URL="https://api.skylineintelligence.top/v1"
+          </li>
+          <li>
+            <span>2</span>
+            <div>
+              <strong>Copy the Base URL</strong>
+              <p>Use the console connection panel or call <code>GET /api/connection-info</code> with your console session token. The returned <code>baseUrl</code> should be <code>https://api.skylineintelligence.top/v1</code>.</p>
+            </div>
+          </li>
+          <li>
+            <span>3</span>
+            <div>
+              <strong>Send one chat request</strong>
+              <p>Use <code>model: "auto"</code> for router-owned selection, or choose a specific model from <code>/v1/models</code> or the Model Plaza.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="doc-section" id="connect" data-searchable="sdk curl python node javascript openai compatible">
+        <p class="eyebrow">Connect</p>
+        <h2>Use existing OpenAI clients</h2>
+        <p>Most apps only need two changes: set <code>baseURL</code> to SKYLINE AI and replace the API key. The request body stays familiar.</p>
+
+        <div class="code-tabs" aria-label="API examples">
+          <div class="tab-list" role="tablist">
+            <button class="tab-button active" type="button" data-tab="curl" role="tab" aria-selected="true">cURL</button>
+            <button class="tab-button" type="button" data-tab="node" role="tab" aria-selected="false">Node.js</button>
+            <button class="tab-button" type="button" data-tab="python" role="tab" aria-selected="false">Python</button>
+          </div>
+          <div class="code-panel active" data-panel="curl">
+            <button class="copy-button" type="button" data-copy-target="curl-code">Copy</button>
+            <pre id="curl-code"><code>export SKYLINE_BASE_URL="https://api.skylineintelligence.top/v1"
 export SKYLINE_API_KEY="sk_aibrg_your_key"
 
 curl "$SKYLINE_BASE_URL/chat/completions" \
@@ -182,10 +1171,10 @@ curl "$SKYLINE_BASE_URL/chat/completions" \
       { "role": "user", "content": "Explain SKYLINE AI in one sentence." }
     ]
   }'</code></pre>
-            </div>
-            <div class="code-panel" data-panel="node">
-              <button class="copy-button" type="button" data-copy-target="node-code">Copy</button>
-              <pre id="node-code"><code>import OpenAI from "openai";
+          </div>
+          <div class="code-panel" data-panel="node">
+            <button class="copy-button" type="button" data-copy-target="node-code">Copy</button>
+            <pre id="node-code"><code>import OpenAI from "openai";
 
 const client = new OpenAI({
   apiKey: process.env.SKYLINE_API_KEY,
@@ -201,10 +1190,10 @@ const response = await client.chat.completions.create({
 });
 
 process.stdout.write(response.choices[0].message.content);</code></pre>
-            </div>
-            <div class="code-panel" data-panel="python">
-              <button class="copy-button" type="button" data-copy-target="python-code">Copy</button>
-              <pre id="python-code"><code>from openai import OpenAI
+          </div>
+          <div class="code-panel" data-panel="python">
+            <button class="copy-button" type="button" data-copy-target="python-code">Copy</button>
+            <pre id="python-code"><code>from openai import OpenAI
 import os
 
 client = OpenAI(
@@ -220,174 +1209,174 @@ response = client.chat.completions.create(
 )
 
 print(response.choices[0].message.content)</code></pre>
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="doc-section" id="api-reference" data-searchable="api reference endpoints runtime chat completions responses messages files models">
-          <p class="eyebrow">API reference</p>
-          <h2>Runtime API surface</h2>
-          <p>Customer traffic goes through the runtime service under <code>/v1</code>. Start with chat completions unless you specifically need Responses, Anthropic-style Messages, or file operations.</p>
-          <div class="endpoint-table" role="table" aria-label="SKYLINE AI runtime endpoints">
-            <div role="row">
-              <strong role="cell">GET</strong>
-              <code role="cell">/v1/models</code>
-              <span role="cell">List models visible to the caller's organization.</span>
-            </div>
-            <div role="row">
-              <strong role="cell">GET</strong>
-              <code role="cell">/v1/models/{modelId}</code>
-              <span role="cell">Fetch one enabled model. Returns not found or forbidden if unavailable.</span>
-            </div>
-            <div role="row">
-              <strong role="cell">POST</strong>
-              <code role="cell">/v1/chat/completions</code>
-              <span role="cell">Primary OpenAI-compatible chat endpoint. Supports streaming SSE.</span>
-            </div>
-            <div role="row">
-              <strong role="cell">POST</strong>
-              <code role="cell">/v1/responses</code>
-              <span role="cell">Responses-style input mapped into SKYLINE AI chat routing.</span>
-            </div>
-            <div role="row">
-              <strong role="cell">POST</strong>
-              <code role="cell">/v1/messages</code>
-              <span role="cell">Anthropic-style Messages surface for compatible clients.</span>
-            </div>
-            <div role="row">
-              <strong role="cell">POST</strong>
-              <code role="cell">/v1/messages/count_tokens</code>
-              <span role="cell">Estimate input tokens before sending a Messages request.</span>
-            </div>
-            <div role="row">
-              <strong role="cell">POST</strong>
-              <code role="cell">/v1/files</code>
-              <span role="cell">Upload files for file-aware model workflows.</span>
-            </div>
+      <section class="doc-section" id="api-reference" data-searchable="api reference endpoints runtime chat completions responses messages files models">
+        <p class="eyebrow">API reference</p>
+        <h2>Runtime API surface</h2>
+        <p>Customer traffic goes through the runtime service under <code>/v1</code>. Start with chat completions unless you specifically need Responses, Anthropic-style Messages, or file operations.</p>
+        <div class="endpoint-table" role="table" aria-label="SKYLINE AI runtime endpoints">
+          <div role="row">
+            <strong role="cell">GET</strong>
+            <code role="cell">/v1/models</code>
+            <span role="cell">List models visible to the caller's organization.</span>
           </div>
-
-          <div class="note-grid">
-            <div class="note-card">
-              <strong>Authentication</strong>
-              <p>Pass <code>Authorization: Bearer sk_aibrg_...</code>. Runtime also accepts <code>x-api-key</code> for Anthropic-style clients.</p>
-            </div>
-            <div class="note-card">
-              <strong>Request IDs</strong>
-              <p>Responses include a <code>request-id</code> header. Keep it with application logs so support can trace routing and billing events.</p>
-            </div>
-            <div class="note-card">
-              <strong>Streaming</strong>
-              <p>OpenAI-compatible streams emit SSE chunks and terminate with <code>data: [DONE]</code>. Billing continues to drain provider usage even if the client disconnects.</p>
-            </div>
+          <div role="row">
+            <strong role="cell">GET</strong>
+            <code role="cell">/v1/models/{modelId}</code>
+            <span role="cell">Fetch one enabled model. Returns not found or forbidden if unavailable.</span>
           </div>
-        </section>
+          <div role="row">
+            <strong role="cell">POST</strong>
+            <code role="cell">/v1/chat/completions</code>
+            <span role="cell">Primary OpenAI-compatible chat endpoint. Supports streaming SSE.</span>
+          </div>
+          <div role="row">
+            <strong role="cell">POST</strong>
+            <code role="cell">/v1/responses</code>
+            <span role="cell">Responses-style input mapped into SKYLINE AI chat routing.</span>
+          </div>
+          <div role="row">
+            <strong role="cell">POST</strong>
+            <code role="cell">/v1/messages</code>
+            <span role="cell">Anthropic-style Messages surface for compatible clients.</span>
+          </div>
+          <div role="row">
+            <strong role="cell">POST</strong>
+            <code role="cell">/v1/messages/count_tokens</code>
+            <span role="cell">Estimate input tokens before sending a Messages request.</span>
+          </div>
+          <div role="row">
+            <strong role="cell">POST</strong>
+            <code role="cell">/v1/files</code>
+            <span role="cell">Upload files for file-aware model workflows.</span>
+          </div>
+        </div>
 
-        <section class="doc-section" id="models" data-searchable="models routing auto route model plaza provider fallback vision tools streaming">
-          <p class="eyebrow">Models and routing</p>
-          <h2>Choose a model, or let the router choose</h2>
-          <p>SKYLINE AI separates customer-facing model codes from upstream provider details. Your organization only sees models enabled by an admin. The router then picks an eligible channel based on model access, capability requirements, priority, weight, health, and fallback availability.</p>
-          <div class="split-grid">
-            <div class="doc-card">
-              <h3>Use a specific model</h3>
-              <p>Call <code>GET /v1/models</code> or open Model Plaza, then send a known <code>model</code> code. This is best when your app has strict quality, context, or cost expectations.</p>
-              <pre><code>{
+        <div class="note-grid">
+          <div class="note-card">
+            <strong>Authentication</strong>
+            <p>Pass <code>Authorization: Bearer sk_aibrg_...</code>. Runtime also accepts <code>x-api-key</code> for Anthropic-style clients.</p>
+          </div>
+          <div class="note-card">
+            <strong>Request IDs</strong>
+            <p>Responses include a <code>request-id</code> header. Keep it with application logs so support can trace routing and billing events.</p>
+          </div>
+          <div class="note-card">
+            <strong>Streaming</strong>
+            <p>OpenAI-compatible streams emit SSE chunks and terminate with <code>data: [DONE]</code>. Billing continues to drain provider usage even if the client disconnects.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="models" data-searchable="models routing auto route model plaza provider fallback vision tools streaming">
+        <p class="eyebrow">Models and routing</p>
+        <h2>Choose a model, or let the router choose</h2>
+        <p>SKYLINE AI separates customer-facing model codes from upstream provider details. Your organization only sees models enabled by an admin. The router then picks an eligible channel based on model access, capability requirements, priority, weight, health, and fallback availability.</p>
+        <div class="split-grid">
+          <div class="doc-card">
+            <h3>Use a specific model</h3>
+            <p>Call <code>GET /v1/models</code> or open Model Plaza, then send a known <code>model</code> code. This is best when your app has strict quality, context, or cost expectations.</p>
+            <pre><code>{
   "model": "gpt-4o-mini",
   "messages": [{ "role": "user", "content": "Hello" }]
 }</code></pre>
-            </div>
-            <div class="doc-card">
-              <h3>Use automatic routing</h3>
-              <p>Send <code>model: "auto"</code> when the organization wants SKYLINE AI to choose an eligible route. The router considers request features like streaming, tool calls, and vision before selecting a target.</p>
-              <pre><code>{
+          </div>
+          <div class="doc-card">
+            <h3>Use automatic routing</h3>
+            <p>Send <code>model: "auto"</code> when the organization wants SKYLINE AI to choose an eligible route. The router considers request features like streaming, tool calls, and vision before selecting a target.</p>
+            <pre><code>{
   "model": "auto",
   "stream": true,
   "messages": [{ "role": "user", "content": "Draft release notes" }]
 }</code></pre>
-            </div>
           </div>
-          <div class="routing-strip" aria-label="Routing stages">
-            <div><span>Access</span><strong>Org model enabled</strong></div>
-            <div><span>Ability</span><strong>Tools, vision, stream</strong></div>
-            <div><span>Route</span><strong>Priority and weight</strong></div>
-            <div><span>Protect</span><strong>Quota and circuit state</strong></div>
-          </div>
-        </section>
+        </div>
+        <div class="routing-strip" aria-label="Routing stages">
+          <div><span>Access</span><strong>Org model enabled</strong></div>
+          <div><span>Ability</span><strong>Tools, vision, stream</strong></div>
+          <div><span>Route</span><strong>Priority and weight</strong></div>
+          <div><span>Protect</span><strong>Quota and circuit state</strong></div>
+        </div>
+      </section>
 
-        <section class="doc-section" id="billing" data-searchable="billing usage credits quota ledger budget usage summary api keys">
-          <p class="eyebrow">Billing and usage</p>
-          <h2>Every request is authorized before it runs</h2>
-          <p>SKYLINE AI reserves estimated quota and billing capacity before the provider call, then settles against actual usage after completion. That keeps quota enforcement predictable during concurrent traffic and gives finance teams a request-level ledger.</p>
-          <div class="metric-row">
-            <div>
-              <span>Before request</span>
-              <strong>Quota reservation</strong>
-              <p>Checks API key status, organization status, enabled model access, key rate limits, and estimated cost.</p>
-            </div>
-            <div>
-              <span>After response</span>
-              <strong>Credit settlement</strong>
-              <p>Calculates billable input, output, cache, and tool dimensions from provider usage.</p>
-            </div>
-            <div>
-              <span>In console</span>
-              <strong>Usage analytics</strong>
-              <p>View requests, tokens, credits, latency, status, model usage, and usage by key.</p>
-            </div>
+      <section class="doc-section" id="billing" data-searchable="billing usage credits quota ledger budget usage summary api keys">
+        <p class="eyebrow">Billing and usage</p>
+        <h2>Every request is authorized before it runs</h2>
+        <p>SKYLINE AI reserves estimated quota and billing capacity before the provider call, then settles against actual usage after completion. That keeps quota enforcement predictable during concurrent traffic and gives finance teams a request-level ledger.</p>
+        <div class="metric-row">
+          <div>
+            <span>Before request</span>
+            <strong>Quota reservation</strong>
+            <p>Checks API key status, organization status, enabled model access, key rate limits, and estimated cost.</p>
           </div>
-          <div class="endpoint-table compact" role="table" aria-label="Customer usage endpoints">
-            <div role="row"><strong role="cell">GET</strong><code role="cell">/api/usage/summary</code><span role="cell">Aggregate by model with optional time range and comparison.</span></div>
-            <div role="row"><strong role="cell">GET</strong><code role="cell">/api/usage/summary/by-key</code><span role="cell">Aggregate by API key and project.</span></div>
-            <div role="row"><strong role="cell">GET</strong><code role="cell">/api/usage/records</code><span role="cell">Request-level rows with token, latency, credit, status, and time.</span></div>
-            <div role="row"><strong role="cell">GET</strong><code role="cell">/api/billing/ledger</code><span role="cell">Ledger entries for customer credit movement.</span></div>
+          <div>
+            <span>After response</span>
+            <strong>Credit settlement</strong>
+            <p>Calculates billable input, output, cache, and tool dimensions from provider usage.</p>
           </div>
-        </section>
+          <div>
+            <span>In console</span>
+            <strong>Usage analytics</strong>
+            <p>View requests, tokens, credits, latency, status, model usage, and usage by key.</p>
+          </div>
+        </div>
+        <div class="endpoint-table compact" role="table" aria-label="Customer usage endpoints">
+          <div role="row"><strong role="cell">GET</strong><code role="cell">/api/usage/summary</code><span role="cell">Aggregate by model with optional time range and comparison.</span></div>
+          <div role="row"><strong role="cell">GET</strong><code role="cell">/api/usage/summary/by-key</code><span role="cell">Aggregate by API key and project.</span></div>
+          <div role="row"><strong role="cell">GET</strong><code role="cell">/api/usage/records</code><span role="cell">Request-level rows with token, latency, credit, status, and time.</span></div>
+          <div role="row"><strong role="cell">GET</strong><code role="cell">/api/billing/ledger</code><span role="cell">Ledger entries for customer credit movement.</span></div>
+        </div>
+      </section>
 
-        <section class="doc-section" id="console" data-searchable="console api keys model plaza usage org admin super admin provider channel">
-          <p class="eyebrow">Console workflow</p>
-          <h2>Operate the gateway from the customer UI</h2>
-          <p>The docs map directly to the current console navigation so operators and developers can speak the same language.</p>
-          <div class="console-grid">
-            <div class="console-card">
-              <span>USER</span>
-              <strong>API Keys</strong>
-              <p>Create, rotate, disable, and delete keys. Copy the Base URL and first cURL from the quick-connect panel.</p>
-            </div>
-            <div class="console-card">
-              <span>USER</span>
-              <strong>Model Plaza</strong>
-              <p>Search enabled models by provider, capability, model code, context window, and per-token pricing.</p>
-            </div>
-            <div class="console-card">
-              <span>USER</span>
-              <strong>Usage</strong>
-              <p>Review by model, by key, or at request-detail level with credits, tokens, latency, and status.</p>
-            </div>
-            <div class="console-card">
-              <span>ORG ADMIN</span>
-              <strong>Available Models</strong>
-              <p>Enable or disable models distributed to the organization and manage member quotas.</p>
-            </div>
-            <div class="console-card">
-              <span>SUPER ADMIN</span>
-              <strong>Provider Services</strong>
-              <p>Register provider base URLs, discover models, map channels, and set pricing dimensions.</p>
-            </div>
-            <div class="console-card">
-              <span>SUPER ADMIN</span>
-              <strong>Routing</strong>
-              <p>Bind model abilities to channels, priority, weight, provider model codes, and adapter regions.</p>
-            </div>
+      <section class="doc-section" id="console" data-searchable="console api keys model plaza usage org admin super admin provider channel">
+        <p class="eyebrow">Console workflow</p>
+        <h2>Operate the gateway from the customer UI</h2>
+        <p>The docs map directly to the current console navigation so operators and developers can speak the same language.</p>
+        <div class="console-grid">
+          <div class="console-card">
+            <span>USER</span>
+            <strong>API Keys</strong>
+            <p>Create, rotate, disable, and delete keys. Copy the Base URL and first cURL from the quick-connect panel.</p>
           </div>
-        </section>
+          <div class="console-card">
+            <span>USER</span>
+            <strong>Model Plaza</strong>
+            <p>Search enabled models by provider, capability, model code, context window, and per-token pricing.</p>
+          </div>
+          <div class="console-card">
+            <span>USER</span>
+            <strong>Usage</strong>
+            <p>Review by model, by key, or at request-detail level with credits, tokens, latency, and status.</p>
+          </div>
+          <div class="console-card">
+            <span>ORG ADMIN</span>
+            <strong>Available Models</strong>
+            <p>Enable or disable models distributed to the organization and manage member quotas.</p>
+          </div>
+          <div class="console-card">
+            <span>SUPER ADMIN</span>
+            <strong>Provider Services</strong>
+            <p>Register provider base URLs, discover models, map channels, and set pricing dimensions.</p>
+          </div>
+          <div class="console-card">
+            <span>SUPER ADMIN</span>
+            <strong>Routing</strong>
+            <p>Bind model abilities to channels, priority, weight, provider model codes, and adapter regions.</p>
+          </div>
+        </div>
+      </section>
 
-        <section class="doc-section" id="errors" data-searchable="errors fallback degraded retry after request id rate limit insufficient balance">
-          <p class="eyebrow">Errors and fallback</p>
-          <h2>Handle failures explicitly</h2>
-          <p>Runtime errors use a stable JSON shape with a request ID. Rate limits and temporary service pressure include <code>Retry-After</code>. Fallback responses expose degradation metadata so your app can decide whether to display, retry, or audit the result.</p>
-          <div class="split-grid">
-            <div class="doc-card">
-              <h3>Error body</h3>
-              <pre><code>{
+      <section class="doc-section" id="errors" data-searchable="errors fallback degraded retry after request id rate limit insufficient balance">
+        <p class="eyebrow">Errors and fallback</p>
+        <h2>Handle failures explicitly</h2>
+        <p>Runtime errors use a stable JSON shape with a request ID. Rate limits and temporary service pressure include <code>Retry-After</code>. Fallback responses expose degradation metadata so your app can decide whether to display, retry, or audit the result.</p>
+        <div class="split-grid">
+          <div class="doc-card">
+            <h3>Error body</h3>
+            <pre><code>{
   "type": "error",
   "error": {
     "type": "rate_limit_error",
@@ -395,41 +1384,121 @@ print(response.choices[0].message.content)</code></pre>
   },
   "request_id": "req_..."
 }</code></pre>
-            </div>
-            <div class="doc-card">
-              <h3>Fallback headers</h3>
-              <pre><code>X-SKYLINE-Degraded: true
+          </div>
+          <div class="doc-card">
+            <h3>Fallback headers</h3>
+            <pre><code>X-SKYLINE-Degraded: true
 X-SKYLINE-Fallback-Reason: channel_unhealthy
 X-SKYLINE-Fallback-From: claude-sonnet
 X-SKYLINE-Fallback-To: gpt-4o-mini</code></pre>
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="doc-section" id="checklist" data-searchable="go live preflight integration api key logging quota retries">
-          <p class="eyebrow">Before live traffic</p>
-          <h2>Go-live preflight</h2>
-          <p>Use this as a final client-integration check before an app sends real traffic through SKYLINE AI. It is not a platform production runbook.</p>
-          <div class="checklist">
-            <label><input type="checkbox"> Store API keys in a secret manager, never in code or client-side bundles.</label>
-            <label><input type="checkbox"> Log <code>request-id</code>, selected model, latency, and fallback headers for every call.</label>
-            <label><input type="checkbox"> Set per-key budgets and expiration dates for services, jobs, and developer sandboxes.</label>
-            <label><input type="checkbox"> Use streaming for long responses and set client-side read timeouts.</label>
-            <label><input type="checkbox"> Watch usage by key during launch, then tune model choices or automatic routing policy.</label>
-            <label><input type="checkbox"> Treat <code>429</code>, <code>402</code>, and fallback-degraded responses as separate operational states.</label>
-          </div>
-        </section>
+      <section class="doc-section" id="checklist" data-searchable="go live preflight integration api key logging quota retries">
+        <p class="eyebrow">Before live traffic</p>
+        <h2>Go-live preflight</h2>
+        <p>Use this as a final client-integration check before an app sends real traffic through SKYLINE AI. It is not a platform production runbook.</p>
+        <div class="checklist">
+          <label><input type="checkbox"> Store API keys in a secret manager, never in code or client-side bundles.</label>
+          <label><input type="checkbox"> Log <code>request-id</code>, selected model, latency, and fallback headers for every call.</label>
+          <label><input type="checkbox"> Set per-key budgets and expiration dates for services, jobs, and developer sandboxes.</label>
+          <label><input type="checkbox"> Use streaming for long responses and set client-side read timeouts.</label>
+          <label><input type="checkbox"> Watch usage by key during launch, then tune model choices or automatic routing policy.</label>
+          <label><input type="checkbox"> Treat <code>429</code>, <code>402</code>, and fallback-degraded responses as separate operational states.</label>
+        </div>
+      </section>
 
-        <p class="empty-search" hidden>No docs sections match that search.</p>
-      </div>
-    </section>
-  </main>
+      <p class="empty-search" hidden>No docs sections match that search.</p>
+    </div>
+  </section>
+</main>
 
-  <footer class="site-footer">
-    <span>SKYLINE AI Docs</span>
-    <span>OpenAI-compatible gateway, smart routing, and usage-aware billing.</span>
-  </footer>
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <span>© 2026 SKYLINE AI. All rights reserved.</span>
+  </div>
+</footer>
 
-  <script src="./app.js"></script>
+<script>
+  /* === Theme management === */
+  (function () {
+    var root = document.documentElement;
+    var toggle = document.querySelector('[data-theme-toggle]');
+    if (!toggle) return;
+
+    function syncToggleUI(theme) {
+      /* Icon-only toggle: CSS swaps sun/moon based on [data-theme]; nothing to sync here. */
+    }
+
+    function swapLogos(theme) {
+      document.querySelectorAll('.brand-mark').forEach(function (img) {
+        var target = theme === 'dark' ? img.dataset.logoDark : img.dataset.logoLight;
+        if (target && img.getAttribute('src') !== target) img.src = target;
+      });
+    }
+
+    function setTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      syncToggleUI(theme);
+      swapLogos(theme);
+      try { localStorage.setItem('skyline-theme', theme); } catch (e) {}
+    }
+
+    toggle.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme') || 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    var initial = root.getAttribute('data-theme') || 'dark';
+    syncToggleUI(initial);
+    swapLogos(initial);
+
+    if (window.matchMedia) {
+      var mq = window.matchMedia('(prefers-color-scheme: light)');
+      mq.addEventListener && mq.addEventListener('change', function (e) {
+        try { if (!localStorage.getItem('skyline-theme')) setTheme(e.matches ? 'light' : 'dark'); } catch (err) {}
+      });
+    }
+  })();
+</script>
+<!-- ===== Iter 13: Back-to-top + Iter 12: scroll progress ===== -->
+<button class="back-to-top" type="button" id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0, behavior:'smooth'});">↑</button>
+
+<script src="./app.js"></script>
+<script>
+  /* === Iter 17: docs page scroll UX (status bar removed) === */
+  (function () {
+    var progressEl = document.getElementById('scroll-progress');
+    var backTop = document.getElementById('back-to-top');
+
+    function tickScroll() {
+      var h = document.documentElement;
+      var b = document.body;
+      var st = window.pageYOffset || h.scrollTop || b.scrollTop || 0;
+      var sh = (h.scrollHeight || b.scrollHeight) - h.clientHeight;
+      var pct = sh > 0 ? Math.min(1, st / sh) : 0;
+      if (progressEl) progressEl.style.transform = 'scaleX(' + pct + ')';
+      if (backTop) {
+        if (st > 480) backTop.classList.add('is-visible');
+        else backTop.classList.remove('is-visible');
+      }
+    }
+    tickScroll();
+    window.addEventListener('scroll', tickScroll, { passive: true });
+
+    /* Reduced motion */
+    if (window.matchMedia) {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      document.documentElement.dataset.reducedMotion = reduced.matches ? 'true' : 'false';
+      if (reduced.addEventListener) {
+        reduced.addEventListener('change', function (e) {
+          document.documentElement.dataset.reducedMotion = e.matches ? 'true' : 'false';
+        });
+      }
+    }
+  })();
+</script>
 </body>
 </html>
