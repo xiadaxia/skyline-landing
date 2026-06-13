@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of Service — SKYLINE INTELLIGENCE</title>
+<meta name="description" content="SKYLINE INTELLIGENCE Terms of Service — terms governing your use of the SKYLINE smart routing gateway for large language models.">
+<link rel="icon" type="image/svg+xml" href="./linework-logo/logo-skyline-reverse.svg">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('skyline-theme');
+      if (saved === 'light' || saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (e) {}
+  })();
+</script>
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --ink: #e8e4d8;
+    --muted: #888888;
+    --dim: #6a6a6a;
+    --rule: #1c1f25;
+    --card: #13161b;
+    --code-bg: #050608;
+    --code-ink: #d4d4d4;
+    --code-rule: #1f242c;
+    --green: #5b9eff;
+    --green-hover: #4a8adb;
+    --status-bg: var(--bg);
+    --status-ink: var(--ink);
+    --status-dim: #555;
+    --header-bg: rgba(10, 12, 15, 0.88);
+    --table-tint: rgba(255, 255, 255, 0.035);
+    --code-inline-bg: rgba(255, 255, 255, 0.07);
+    --mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Inter", "Segoe UI", sans-serif;
+  }
+  [data-theme="light"] {
+    --bg: #f5f1e8;
+    --ink: #111111;
+    --muted: #666666;
+    --dim: #5a5a5a;
+    --rule: #d8d2c4;
+    --card: #ffffff;
+    --code-bg: #0f1115;
+    --code-ink: #e6e6e6;
+    --code-rule: #1f242c;
+    --green: #1f3fa3;
+    --green-hover: #16307f;
+    --status-bg: var(--bg);
+    --status-ink: var(--ink);
+    --status-dim: #555;
+    --header-bg: rgba(245, 241, 232, 0.92);
+    --table-tint: rgba(0, 0, 0, 0.04);
+    --code-inline-bg: rgba(0, 0, 0, 0.06);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 320ms ease, color 320ms ease;
+  }
+
+  .top {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--header-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .top-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+  }
+  .brand {
+    display: flex; align-items: center;
+    gap: 10px; padding: 4px 6px; margin: -4px -6px;
+    text-decoration: none; color: inherit;
+    flex-shrink: 0;
+  }
+  .brand-mark { width: 28px; height: 28px; display: block; flex-shrink: 0; }
+  .brand-wordmark {
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    padding-left: 10px;
+    border-left: 2px solid var(--ink);
+    flex-shrink: 0;
+    display: inline-flex; align-items: center;
+    transition: color 320ms ease, border-color 320ms ease;
+  }
+  .nav-actions { display: flex; align-items: center; gap: 12px; }
+  .nav-back {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+  .nav-back:hover { background: var(--ink); color: var(--bg); }
+  .theme-toggle {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+  }
+  .theme-toggle:hover { background: var(--table-tint); border-color: var(--ink); color: var(--ink); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+  .theme-toggle .ic-sun, .theme-toggle .ic-moon { display: none; }
+  [data-theme="dark"]  .theme-toggle .ic-sun  { display: inline; }
+  [data-theme="light"] .theme-toggle .ic-moon { display: inline; }
+
+  .doc { max-width: 760px; margin: 0 auto; padding: 56px 24px 96px; }
+  .doc-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin: 0 0 12px;
+  }
+  .doc-title {
+    font-family: var(--sans);
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .doc-meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .doc h2 {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.3;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 48px 0 12px;
+    color: var(--ink);
+  }
+  .doc p { margin: 0 0 16px; color: var(--ink); }
+  .doc p:last-child { margin-bottom: 0; }
+  .doc ul, .doc ol { margin: 0 0 16px; padding-left: 22px; }
+  .doc li { margin-bottom: 8px; }
+  .doc li::marker { color: var(--muted); }
+  .doc strong { color: var(--ink); font-weight: 700; }
+  .doc em { color: var(--ink); font-style: normal; border-bottom: 1px dotted var(--muted); }
+  .doc a {
+    color: var(--green);
+    text-decoration: none;
+    border-bottom: 1px solid var(--green);
+    transition: color 200ms ease, border-color 200ms ease;
+  }
+  .doc a:hover { color: var(--green-hover); border-bottom-color: var(--green-hover); }
+  .doc hr { border: 0; border-top: 1px solid var(--rule); margin: 48px 0; }
+  .doc code {
+    font-family: var(--mono);
+    font-size: 0.92em;
+    background: var(--code-inline-bg);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  .callout {
+    margin: 24px 0;
+    padding: 14px 18px;
+    border-left: 2px solid var(--green);
+    background: var(--table-tint);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .callout-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--green);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .contact-block {
+    margin-top: 32px;
+    padding: 20px 24px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    background: var(--table-tint);
+  }
+  .contact-block p { margin: 0; font-size: 14px; }
+
+  .back-to-top {
+    position: fixed;
+    right: 24px; bottom: 24px;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg); color: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 90;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 240ms ease, transform 240ms ease, background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .back-to-top.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .back-to-top:hover { background: var(--green); color: var(--bg); border-color: var(--green); }
+  .back-to-top:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+  @media (max-width: 640px) {
+    .back-to-top { right: 16px; bottom: 16px; }
+    .doc { padding: 40px 20px 80px; }
+    .doc-title { font-size: 32px; }
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 8px; left: 8px;
+    padding: 8px 14px;
+    background: var(--green); color: var(--bg);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: 0;
+    z-index: 300;
+    transform: translateY(-200%);
+    transition: transform 200ms ease;
+  }
+  .skip-link:focus { transform: translateY(0); outline: 2px solid var(--green); outline-offset: 2px; }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 32px 24px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer a { color: var(--muted); text-decoration: none; border-bottom: none; }
+  footer a:hover { color: var(--ink); }
+  footer .sep { margin: 0 12px; color: var(--dim); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="./index.html" aria-label="SKYLINE INTELLIGENCE — Home">
+      <img class="brand-mark" src="./linework-logo/logo-skyline-reverse.svg" alt="" width="28" height="28">
+      <span class="brand-wordmark">SKYLINE<br>INTELLIGENCE</span>
+    </a>
+    <div class="nav-actions">
+      <a class="nav-back" href="./index.html">← Back</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <span class="ic-sun" aria-hidden="true">☀</span>
+        <span class="ic-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="doc" id="main">
+  <p class="doc-eyebrow">Legal · Agreement</p>
+  <h1 class="doc-title">Terms of Service</h1>
+  <p class="doc-meta">Last updated: <time datetime="2026-06-12">12 June 2026</time> · <a href="./legal/terms-history.html">Version history</a></p>
+
+  <p>By using SKYLINE (the <em>"Service"</em>), you agree to these Terms. If you accept on behalf of an organization, you represent that you have authority to bind it, and <em>"you"</em> refers to that organization. You must be at least 18 and (if you are a consumer in the EEA, UK, or Switzerland) keep any non-waivable rights those laws give you — these Terms do not remove them.</p>
+
+  <section>
+    <h2>1. The Service</h2>
+    <p>SKYLINE is a smart routing gateway that forwards your requests to third-party large language model providers (<em>"Model Providers"</em>). The Service includes smart routing, usage analytics, and prepaid credits usable across 100+ models. We do not own, train, or operate the underlying models. Outputs come from Model Providers under their own terms.</p>
+    <p>You must keep your account credentials and API keys secure, and notify us at <a href="mailto:security@skylineintelligence.top">security@skylineintelligence.top</a> if you suspect unauthorized access.</p>
+  </section>
+
+  <section>
+    <h2>2. Plans, credits, and billing</h2>
+    <p>The Service is offered on a <strong>pay-as-you-go</strong> basis:</p>
+    <ul>
+      <li><strong>Free</strong> — a limited allowance of free usage, subject to rate limits and model restrictions.</li>
+      <li><strong>Pay-as-you-go</strong> — credits you buy in advance, drawn down as you consume tokens.</li>
+      <li><strong>Team</strong> — one-time credit purchases for organizations. Bonus promotions may be offered at our discretion.</li>
+      <li><strong>Enterprise</strong> — custom contracts negotiated separately.</li>
+    </ul>
+    <p>Per-token prices are listed on our <a href="./index.html#pricing">Pricing</a> page and may change at any time. Price changes do not apply to credits you have already purchased. Credits are non-refundable except where required by law.</p>
+    <p><strong>Auto top-up</strong> is opt-in and not a subscription: it charges your payment method only when your balance falls below a threshold you choose, and you can disable it any time.</p>
+  </section>
+
+  <section>
+    <h2>3. Acceptable use</h2>
+    <p>You agree not to use the Service to:</p>
+    <ol>
+      <li>Violate any applicable law, regulation, or third-party right.</li>
+      <li>Generate, transmit, or store content that is illegal, infringing, defamatory, or harmful, or that exploits minors.</li>
+      <li>Reverse-engineer the Service or any Model Provider's outputs, or attempt to derive model weights.</li>
+      <li>Circumvent rate limits, usage caps, or security mechanisms.</li>
+      <li>Use the Service to build a competing product or to train competing models.</li>
+    </ol>
+    <p>Outputs generated through the Service are your responsibility. We may suspend or terminate accounts that violate this section.</p>
+  </section>
+
+  <section>
+    <h2>4. Intellectual property</h2>
+    <p>You retain all rights to the prompts and content you submit (<em>"User Content"</em>). You grant us a worldwide, non-exclusive, royalty-free license to host, transmit, process, and store User Content solely to operate the Service.</p>
+    <p>The Service, including its software, branding, design, and documentation, is owned by SKYLINE INTELLIGENCE. These Terms grant you a limited, non-exclusive, non-transferable, revocable license to use the Service for your internal purposes.</p>
+  </section>
+
+  <section>
+    <h2>5. Privacy</h2>
+    <p>Your use of the Service is also governed by our <a href="./privacy.html">Privacy Policy</a>. You are responsible for ensuring that your User Content complies with applicable privacy laws.</p>
+  </section>
+
+  <section>
+    <h2>6. Suspension and termination</h2>
+    <p>You may stop using the Service at any time. We may suspend or terminate your access if you breach these Terms, your usage poses a security or legal risk, a Model Provider requires it, or payment fails and remains unresolved for 30 days. Where reasonable, we will give advance notice and an opportunity to cure.</p>
+  </section>
+
+  <section>
+    <h2>7. Disclaimers and liability</h2>
+    <p>The Service is provided <em>"as is"</em> and <em>"as available"</em>, without warranties of any kind, express or implied, including merchantability, fitness for a particular purpose, and non-infringement. We do not warrant that the Service will be uninterrupted, error-free, or that outputs from Model Providers will be accurate, reliable, or safe. You are responsible for reviewing outputs before relying on them, particularly for high-stakes use cases (legal, medical, financial, safety-critical).</p>
+    <p>To the maximum extent permitted by law, our total cumulative liability for all claims arising from these Terms or the Service will not exceed the greater of (a) the amounts you paid us in the 12 months before the event, or (b) <strong>USD $100</strong>. In no event will we be liable for indirect, incidental, special, consequential, or punitive damages, or for any loss of profits, revenue, data, or goodwill — whether or not we have been informed of the possibility of such damages.</p>
+    <p>Nothing in this section removes or limits any liability that cannot be excluded under the mandatory laws of your country of residence.</p>
+  </section>
+
+  <section>
+    <h2>8. Disputes</h2>
+    <p>Before filing a claim, contact us at <a href="mailto:legal@skylineintelligence.top">legal@skylineintelligence.top</a> and try to resolve the dispute informally for 30 days. These Terms are governed by the laws of the jurisdiction where SKYLINE INTELLIGENCE is incorporated, without regard to conflict-of-laws principles. Any unresolved dispute will be resolved by binding arbitration, except that either party may seek injunctive relief in court to protect its intellectual property or confidential information. To the extent permitted by law, you waive the right to participate in a class action.</p>
+    <p>If you are a consumer in the EEA, UK, or Switzerland, nothing in this section removes or limits any non-waivable right you have under the laws of your country of residence, including the right to bring claims in your local courts.</p>
+  </section>
+
+  <section>
+    <h2>9. Contact</h2>
+    <p>Questions about these Terms?</p>
+    <div class="contact-block">
+      <p>
+        <strong>Email:</strong> <a href="mailto:legal@skylineintelligence.top">legal@skylineintelligence.top</a><br>
+        <strong>Security disclosures:</strong> <a href="mailto:security@skylineintelligence.top">security@skylineintelligence.top</a><br>
+        <strong>Support:</strong> <a href="./index.html#support">skylineintelligence.top/support</a>
+      </p>
+    </div>
+    <p style="margin-top:32px;font-style:italic;color:var(--muted);font-size:14px;">By using SKYLINE, you acknowledge that you have read and agreed to these Terms of Service.</p>
+  </section>
+</main>
+
+<footer>
+  <a href="./index.html">SKYLINE INTELLIGENCE</a>
+  <span class="sep">·</span>
+  <a href="./terms.html">Terms</a>
+  <span class="sep">·</span>
+  <a href="./privacy.html">Privacy</a>
+  <span class="sep">·</span>
+  <span>© 2026</span>
+</footer>
+
+<button class="back-to-top" type="button" id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0, behavior:'smooth'});">↑</button>
+
+<script>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    function swapLogos(theme) {
+      var logo = document.querySelector('.brand-mark');
+      if (!logo) return;
+      logo.src = theme === 'light'
+        ? './linework-logo/logo-skyline.svg'
+        : './linework-logo/logo-skyline-reverse.svg';
+    }
+    function syncToggleUI(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+    btn.addEventListener('click', function () {
+      var cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      var next = cur === 'dark' ? 'light' : 'dark';
+      syncToggleUI(next);
+      swapLogos(next);
+      try { localStorage.setItem('skyline-theme', next); } catch (e) {}
+    });
+    var initial = document.documentElement.getAttribute('data-theme') || 'dark';
+    swapLogos(initial);
+  })();
+
+  (function () {
+    var btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    function onScroll() {
+      btn.classList.toggle('is-visible', window.scrollY > 600);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+</body>
+</html>

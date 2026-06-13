@@ -350,7 +350,7 @@
        padding: 0;
      }
      .hero-sub {
-      font-size: 19px;
+      font-size: 22px;
       line-height: 1.5;
       color: var(--muted);
       max-width: 640px;
@@ -366,7 +366,7 @@
       gap: 0;
     }
     .stat { padding-right: 24px; transition: opacity 200ms ease; cursor: default; }
-    .stat:not(:last-child) { border-right: 1px solid var(--rule); padding-right: 24px; }
+    .stat:not(:last-child) { border-right: 1px solid var(--ink); padding-right: 24px; }
     .stat:not(:first-child) { padding-left: 24px; }
     .stat:hover .stat-value { color: var(--green); }
     .stat:hover .stat-label { color: var(--ink); }
@@ -978,6 +978,14 @@
     .footer-socials a:hover { opacity: 1; transform: translateY(-1px); color: var(--green); }
     .footer-socials svg { width: 14px; height: 14px; fill: currentColor; }
     .footer-sep { color: var(--muted); opacity: 0.5; }
+    .footer-legal { display: inline-flex; align-items: center; gap: 14px; }
+    .footer-legal a {
+      color: var(--ink);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 180ms ease, color 200ms ease;
+    }
+    .footer-legal a:hover { opacity: 1; color: var(--green); }
 
     /* === RESPONSIVE === */
     @media (max-width: 900px) {
@@ -1077,7 +1085,6 @@
       display: flex;
       gap: 0;
       border: 1px solid var(--ink);
-      border-bottom: 0;
       margin-bottom: 20px;
     }
     .modal-tab {
@@ -1091,7 +1098,7 @@
       color: var(--muted);
       background: transparent;
       border: 0;
-      border-right: 1px solid var(--rule);
+      border-right: 1px solid var(--ink);
       cursor: pointer;
       transition: background 200ms ease, color 200ms ease;
     }
@@ -1149,7 +1156,7 @@
       content: "";
       flex: 1;
       height: 1px;
-      background: var(--rule);
+      background: var(--ink);
     }
     .modal-oauth {
       display: flex;
@@ -1320,7 +1327,6 @@
       display: flex;
       gap: 0;
       border: 1px solid var(--ink);
-      border-bottom: 0;
       margin-bottom: 20px;
     }
     .modal-tab {
@@ -1334,7 +1340,7 @@
       color: var(--muted);
       background: transparent;
       border: 0;
-      border-right: 1px solid var(--rule);
+      border-right: 1px solid var(--ink);
       cursor: pointer;
       transition: background 200ms ease, color 200ms ease;
     }
@@ -1391,7 +1397,7 @@
       content: "";
       flex: 1;
       height: 1px;
-      background: var(--rule);
+      background: var(--ink);
     }
     .modal-oauth {
       display: flex;
@@ -1842,6 +1848,11 @@
     <span class="footer-sep">//</span>
       <span>© 2026 Skyline Intelligence. All rights reserved.</span>
     <span class="footer-sep">//</span>
+    <span class="footer-legal">
+      <a href="./terms.html">Terms</a>
+      <a href="./privacy.html">Privacy</a>
+    </span>
+    <span class="footer-sep">//</span>
     <span class="footer-socials">
       <a href="#" aria-label="Twitter / X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.65l-5.21-6.81-5.964 6.81H1.694l7.73-8.835L1.254 2.25h6.83l4.713 6.231 5.447-6.231zm-1.16 17.52h1.834L7.084 4.126H5.117L17.084 19.77z"/></svg></a>
       <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.111.82-.261.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
@@ -1906,7 +1917,7 @@
       Continue with GitHub
     </button>
     <p class="modal-proof"><span class="proof-dot"></span>Join 12,000+ developers shipping with Skyline Intelligence</p>
-    <p class="modal-legal">By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy</a></p>
+    <p class="modal-legal">By continuing, you agree to our <a href="./terms.html" target="_blank" rel="noopener">Terms</a> and <a href="./privacy.html" target="_blank" rel="noopener">Privacy</a></p>
     </div>
 </div>
 
