@@ -7,9 +7,23 @@
   <meta name="theme-color" content="#0a0c0f" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
   <title>The Smart Router for LLMs</title>
-  <meta property="og:title" content="The Smart Router for LLMs">
-  <meta property="og:description" content="One API for every major AI model. Save up to 35% on AI costs.">
+  <meta property="og:title" content="The Smart Router for LLMs — SKYLINE INTELLIGENCE">
+  <meta property="og:description" content="One API for every major AI model. Intelligent routing that automatically selects the optimal model for your task. Save up to 35% on AI costs.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://skylineintelligence.top/">
+  <meta property="og:site_name" content="SKYLINE INTELLIGENCE">
+  <meta property="og:image" content="https://skylineintelligence.top/linework-logo/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="SKYLINE INTELLIGENCE — The Smart Router for LLMs">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Smart Router for LLMs — SKYLINE INTELLIGENCE">
+  <meta name="twitter:description" content="One API for every major AI model. Save up to 35% on AI costs.">
+  <meta name="twitter:image" content="https://skylineintelligence.top/linework-logo/og-image.png">
+  <link rel="canonical" href="https://skylineintelligence.top/">
   <link rel="icon" type="image/svg+xml" href="./linework-logo/logo-stamp.svg">
+  <link rel="icon" type="image/png" sizes="64x64" href="./linework-logo/favicon-64.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" sizes="64x64" href="./linework-logo/favicon-dark-64.png" media="(prefers-color-scheme: dark)">
   <script>
     /* FOUC-safe theme init — runs before body parses, no flash on first paint */
     (function () {
@@ -280,6 +294,33 @@
 
     .nav-cta { display: flex; gap: 8px; align-items: center; margin-left: 48px; margin-right: 6px; }
 
+    /* === Mobile nav toggle (hidden on desktop) === */
+    .nav-toggle {
+      display: none;
+      width: 32px; height: 32px;
+      align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      background: var(--code-inline-bg);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      padding: 0;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 200ms ease, border-color 200ms ease;
+    }
+    .nav-toggle:hover { background: var(--table-tint); border-color: var(--ink); }
+    .nav-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+    .nav-toggle-bar {
+      display: block;
+      width: 14px; height: 1.5px;
+      background: var(--ink);
+      transition: transform 220ms cubic-bezier(.4, 0, .2, 1), opacity 160ms ease;
+    }
+    .nav-toggle.is-open .nav-toggle-bar:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+    .nav-toggle.is-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+    .nav-toggle.is-open .nav-toggle-bar:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
     /* === BUTTONS === */
     .btn {
       display: inline-flex;
@@ -473,13 +514,27 @@
     /* === STEPS === */
     .steps {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 24px 1fr 24px 1fr;
+      align-items: stretch;
       border: 1px solid var(--ink);
     }
+    .step-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--card);
+      transition: color 240ms ease, transform 240ms ease;
+    }
+    .step-connector:hover { color: var(--green); transform: translateX(2px); }
+    /* Vertical 1px divider between steps — drawn as border-left on step 2 and 3 (avoiding the connector). */
+    .step:nth-child(3), .step:nth-child(5) { border-left: 1px solid var(--ink); }
     .step {
       padding: 32px 28px 36px;
       background: var(--card);
-      border-right: 1px solid var(--ink);
       transition: background-color 280ms ease, transform 320ms cubic-bezier(.2, 0.7, 0.3, 1), box-shadow 280ms ease;
       position: relative;
       transform-style: preserve-3d;
@@ -490,24 +545,6 @@
     .step:hover .step-num { color: var(--green); }
     .step-num { transition: color 240ms ease; }
     .step:last-child { border-right: 0; }
-    /* Iter 22: connector arrow between steps */
-    .step:not(:last-child)::after {
-      content: "→";
-      position: absolute;
-      top: 48px;
-      right: -11px;
-      width: 22px; height: 22px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--bg);
-      border: 1px solid var(--ink);
-      color: var(--ink);
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 600;
-      z-index: 3;
-      transition: background 240ms ease, color 240ms ease, transform 240ms ease;
-    }
-    .step:hover:not(:last-child)::after { background: var(--green); color: var(--bg); transform: translateX(2px); }
     .step-num {
       font-family: var(--mono);
       font-size: 48px;
@@ -989,7 +1026,7 @@
 
     /* === RESPONSIVE === */
     @media (max-width: 900px) {
-      .hero h1 { font-size: 56px; }
+      .hero h1 { font-size: 56px; padding-right: 16px; }
       .section-h2 { font-size: 40px; }
       .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 24px 16px; }
       .stat:not(:last-child) { border-right: 0; }
@@ -1003,14 +1040,44 @@
       .models-grid { grid-template-columns: repeat(3, 1fr); }
       .agents-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
-      .nav { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .nav-cta { margin-left: 12px; }
+      .nav {
+        position: fixed;
+        top: 80px; /* sit below sticky header */
+        left: 0; right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 32px 24px;
+        margin-left: 0;
+        z-index: 49;
+        transform: translateY(-12px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 220ms cubic-bezier(.4, 0, .2, 1), opacity 180ms ease;
+      }
+      .nav.is-open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav a {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--rule);
+        font-size: 14px;
+      }
+      .nav a:last-child { border-bottom: 0; }
+      .nav a::after { display: none; }
       .cta-prompt { font-size: 32px; }
       .cta-prompt .cursor { height: 32px; vertical-align: -8px; width: 8px; }
     }
     @media (max-width: 640px) {
       .hero { padding: 64px 0 48px; }
       .section { padding: 64px 0; }
-      .hero h1 { font-size: 40px; }
+      .hero h1 { font-size: 40px; padding-right: 14px; }
+      .hero h1 .h1-cursor { width: 8px; height: 0.6em; vertical-align: -0.1em; }
       .section-h2 { font-size: 32px; }
       .stat-value { font-size: 48px; }
       .hero-actions { flex-direction: column; }
@@ -1020,6 +1087,70 @@
       .status-info { display: none; }
     }
 
+    /* === Iter 32: section reveal on scroll === */
+
+    /* === Iter 32: section reveal on scroll === */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 600ms cubic-bezier(.4, 0, .2, 1), transform 600ms cubic-bezier(.4, 0, .2, 1); will-change: opacity, transform; }
+    .reveal.is-revealed { opacity: 1; transform: translateY(0); }
+    .reveal[data-reveal-delay="1"] { transition-delay: 80ms; }
+    .reveal[data-reveal-delay="2"] { transition-delay: 160ms; }
+    .reveal[data-reveal-delay="3"] { transition-delay: 240ms; }
+
+    /* === Iter 15: prefers-reduced-motion === */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .status-dot { animation: none !important; }
+      .cta-prompt .cursor { animation: none !important; opacity: 1 !important; }
+      .scroll-progress { transition: none !important; }
+      .back-to-top { transition: opacity 0.001ms !important; transform: none !important; }
+    }
+    html[data-reduced-motion="true"] *,
+    html[data-reduced-motion="true"] *::before,
+    html[data-reduced-motion="true"] *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    html[data-reduced-motion="true"] .status-dot { animation: none !important; }
+    html[data-reduced-motion="true"] .cta-prompt .cursor { animation: none !important; opacity: 1 !important; }
+    html[data-reduced-motion="true"] .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+    /* === Iter 16: Print stylesheet === */
+    @media print {
+      :root, [data-theme="light"], [data-theme="dark"] {
+        --bg: #ffffff;
+        --ink: #000000;
+        --muted: #444;
+        --dim: #666;
+        --rule: #ccc;
+        --card: #ffffff;
+        --code-bg: #f4f4f4;
+        --code-ink: #000;
+        --green: #5b9eff;
+      }
+      body { background: #fff; color: #000; }
+      .scroll-progress, .back-to-top, .skip-link, .modal,
+      .theme-toggle, .status-dot {
+        display: none !important;
+      }
+      .site-header { position: static; background: #fff; border-bottom: 2px solid #000; }
+      .hero, .section { padding: 24px 0; page-break-inside: avoid; }
+      .hero h1, .section-h2 { color: #000; }
+      .feature-card, .step, .model-card, .agent-card, .pricing-card, .note-card {
+        background: #fff !important; border: 1px solid #000 !important; page-break-inside: avoid;
+      }
+      .code-panel { background: #f4f4f4 !important; color: #000 !important; border: 1px solid #ccc !important; }
+      .cta-strip, .site-footer { background: #fff !important; color: #000 !important; border-top: 1px solid #000; }
+      a { color: #000 !important; text-decoration: underline; }
+      .nav, .hero-actions, .cta-actions { display: block !important; }
+      .hero-actions .btn, .cta-actions .btn { display: inline-block; margin: 4px 8px 4px 0; }
+      .stat-value { color: #000; }
+    }
     /* === MODAL (Sign In / Sign Up) === */
     .modal {
       position: fixed; inset: 0;
@@ -1140,6 +1271,53 @@
     }
     .modal-field input:hover { border-color: var(--muted); }
     .modal-field input:focus { border-color: var(--green); box-shadow: 0 0 0 1px var(--green); }
+    /* Iter 29: forgot password link */
+    .modal-forgot {
+      align-self: flex-end;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-top: 2px;
+      transition: color 180ms ease;
+    }
+    .modal-forgot:hover { color: var(--green); }
+    .modal-error {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: 0.4px;
+      color: #b3261e;
+      background: rgba(179, 38, 30, 0.08);
+      border: 1px solid rgba(179, 38, 30, 0.35);
+      border-radius: 2px;
+    }
+    .modal-error::before {
+      content: "!";
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: #b3261e;
+      background: #fff;
+      border: 1px solid #b3261e;
+      border-radius: 50%;
+    }
+    .modal-error[hidden] { display: none; }
     .modal-divider {
       display: flex;
       align-items: center;
@@ -1217,242 +1395,6 @@
       text-decoration: underline;
       text-underline-offset: 2px;
     }
-
-    /* === Iter 32: section reveal on scroll === */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 600ms cubic-bezier(.4, 0, .2, 1), transform 600ms cubic-bezier(.4, 0, .2, 1); will-change: opacity, transform; }
-    .reveal.is-revealed { opacity: 1; transform: translateY(0); }
-    .reveal[data-reveal-delay="1"] { transition-delay: 80ms; }
-    .reveal[data-reveal-delay="2"] { transition-delay: 160ms; }
-    .reveal[data-reveal-delay="3"] { transition-delay: 240ms; }
-
-    /* === Iter 15: prefers-reduced-motion === */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
-        scroll-behavior: auto !important;
-      }
-      .status-dot { animation: none !important; }
-      .cta-prompt .cursor { animation: none !important; opacity: 1 !important; }
-      .scroll-progress { transition: none !important; }
-      .back-to-top { transition: opacity 0.001ms !important; transform: none !important; }
-    }
-    html[data-reduced-motion="true"] *,
-    html[data-reduced-motion="true"] *::before,
-    html[data-reduced-motion="true"] *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-    }
-    html[data-reduced-motion="true"] .status-dot { animation: none !important; }
-    html[data-reduced-motion="true"] .cta-prompt .cursor { animation: none !important; opacity: 1 !important; }
-    html[data-reduced-motion="true"] .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-
-    /* === Iter 16: Print stylesheet === */
-    @media print {
-      :root, [data-theme="light"], [data-theme="dark"] {
-        --bg: #ffffff;
-        --ink: #000000;
-        --muted: #444;
-        --dim: #666;
-        --rule: #ccc;
-        --card: #ffffff;
-        --code-bg: #f4f4f4;
-        --code-ink: #000;
-        --green: #5b9eff;
-      }
-      body { background: #fff; color: #000; }
-      .scroll-progress, .back-to-top, .skip-link, .modal,
-      .theme-toggle, .status-dot {
-        display: none !important;
-      }
-      .site-header { position: static; background: #fff; border-bottom: 2px solid #000; }
-      .hero, .section { padding: 24px 0; page-break-inside: avoid; }
-      .hero h1, .section-h2 { color: #000; }
-      .feature-card, .step, .model-card, .agent-card, .pricing-card, .note-card {
-        background: #fff !important; border: 1px solid #000 !important; page-break-inside: avoid;
-      }
-      .code-panel { background: #f4f4f4 !important; color: #000 !important; border: 1px solid #ccc !important; }
-      .cta-strip, .site-footer { background: #fff !important; color: #000 !important; border-top: 1px solid #000; }
-      a { color: #000 !important; text-decoration: underline; }
-      .nav, .hero-actions, .cta-actions { display: block !important; }
-      .hero-actions .btn, .cta-actions .btn { display: inline-block; margin: 4px 8px 4px 0; }
-      .stat-value { color: #000; }
-    }
-    .modal-backdrop {
-      position: absolute; inset: 0;
-      background: rgba(10, 12, 15, 0.72);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      cursor: pointer;
-    }
-    [data-theme="light"] .modal-backdrop { background: rgba(0, 0, 0, 0.4); }
-    .modal-panel {
-      position: relative;
-      width: 100%; max-width: 420px;
-      background: var(--card);
-      border: 1px solid var(--ink);
-      padding: 36px 32px 28px;
-      max-height: calc(100vh - 48px);
-      overflow-y: auto;
-      transition: background-color 320ms ease, border-color 240ms ease;
-    }
-    .modal-close {
-      position: absolute;
-      top: 8px; right: 12px;
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px; line-height: 1;
-      background: transparent;
-      border: 0;
-      color: var(--muted);
-      cursor: pointer;
-      transition: color 200ms ease;
-    }
-    .modal-close:hover { color: var(--ink); }
-    .modal-title {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      margin: 0 0 6px;
-      color: var(--ink);
-    }
-    .modal-sub {
-      font-size: 14px;
-      color: var(--muted);
-      margin: 0 0 24px;
-    }
-    .modal-tabs {
-      display: flex;
-      gap: 0;
-      border: 1px solid var(--ink);
-      margin-bottom: 20px;
-    }
-    .modal-tab {
-      flex: 1;
-      padding: 10px 16px;
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      background: transparent;
-      border: 0;
-      border-right: 1px solid var(--ink);
-      cursor: pointer;
-      transition: background 200ms ease, color 200ms ease;
-    }
-    .modal-tab:last-child { border-right: 0; }
-    .modal-tab.is-active {
-      background: var(--green); color: var(--bg);
-    }
-    .modal-tab:hover:not(.is-active) { background: var(--table-tint); color: var(--ink); }
-    .modal-form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .modal-form[hidden] { display: none; }
-    .modal-field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .modal-field span {
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .modal-field input {
-      font-family: var(--mono);
-      font-size: 13px;
-      padding: 10px 12px;
-      background: var(--bg);
-      border: 1px solid var(--rule);
-      border-radius: 2px;
-      color: var(--ink);
-      outline: none;
-      transition: border-color 200ms ease, background-color 320ms ease;
-    }
-    .modal-field input:focus { border-color: var(--ink); }
-    .modal-divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 16px 0;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-    .modal-divider::before,
-    .modal-divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--ink);
-    }
-    .modal-oauth {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 11px 16px;
-      margin-bottom: 8px;
-      background: transparent;
-      border: 1px solid var(--ink);
-      border-radius: 2px;
-      color: var(--ink);
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 200ms ease, color 200ms ease;
-    }
-    .modal-oauth:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-    .oauth-mark {
-      display: inline-flex;
-      align-items: center; justify-content: center;
-      width: 18px; height: 18px;
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 700;
-      border: 1px solid currentColor;
-      border-radius: 2px;
-    }
-    .modal-legal {
-      font-size: 12px;
-      color: var(--muted);
-      text-align: center;
-      margin: 16px 0 0;
-    }
-    .modal-legal a {
-      color: var(--ink);
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-    /* Iter 29: forgot password link */
-    .modal-forgot {
-      align-self: flex-end;
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      margin-top: 2px;
-      transition: color 180ms ease;
-    }
-    .modal-forgot:hover { color: var(--green); }
   </style>
 </head>
 <body>
@@ -1477,7 +1419,7 @@
        <span class="brand-wordmark" aria-label="SKYLINE INTELLIGENCE">SKYLINE<br>INTELLIGENCE</span>
       </span>
     </a>
-    <nav class="nav">
+    <nav class="nav" data-nav id="primary-nav">
       <a href="#features">Features</a>
       <a href="#models">Models</a>
       <a href="#pricing">Pricing</a>
@@ -1486,6 +1428,11 @@
     <div class="nav-cta">
       <a href="#" class="btn btn-primary" onclick="openModal(); return false;">Get Started<span class="btn-arrow">→</span></a>
     </div>
+    <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
     <button class="theme-toggle theme-toggle-nav theme-toggle-icon" type="button" data-theme-toggle aria-label="Toggle theme">
       <svg class="theme-icon" data-icon="sun" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="8" cy="8" r="2.6"/>
@@ -1574,7 +1521,7 @@
       <div class="feature-card">
         <div class="feature-num">04 / 06</div>
         <div class="feature-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 3.5v6.2c0 5.2-3.6 8.5-8 9.3-4.4-.8-8-4.1-8-9.3V6l8-3.5z"/><path d="M8.5 12.2l2.5 2.5 4.5-4.7"/></svg>
         </div>
         <h3>Enterprise Security</h3>
         <p>SOC 2 compliant with end-to-end encryption. Your data is protected at every step.</p>
@@ -1615,12 +1562,14 @@
         <h3>Connect</h3>
         <p>Swap one line in your OpenAI SDK config — no code rewrites needed</p>
       </div>
+      <span class="step-connector" aria-hidden="true">→</span>
       <div class="step">
         <div class="step-num">02</div>
         <div class="step-eyebrow">Step 2</div>
         <h3>Route</h3>
         <p>Our routing engine picks the optimal model for each request automatically</p>
       </div>
+      <span class="step-connector" aria-hidden="true">→</span>
       <div class="step">
         <div class="step-num">03</div>
         <div class="step-eyebrow">Step 3</div>
@@ -1771,53 +1720,61 @@
   </div>
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span class="marquee-item">Lumenstack</span>
+      <span class="marquee-item">Ceryth</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Haldor</span>
+      <span class="marquee-item">Plyral</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Bramble</span>
+      <span class="marquee-item">Strynix</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Prysmly</span>
+      <span class="marquee-item">Tralvon</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Quarkline</span>
+      <span class="marquee-item">Wovent</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Verdant Labs</span>
+      <span class="marquee-item">Nymbrix</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Northbeam</span>
+      <span class="marquee-item">Glarvox</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Cinder</span>
+      <span class="marquee-item">Krevant</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Polaroid AI</span>
+      <span class="marquee-item">Feltrum</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Embertype</span>
+      <span class="marquee-item">Vyntor</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Forgework</span>
+      <span class="marquee-item">Solvane</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Heliograph</span>
+      <span class="marquee-item">Quorix</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Lumenstack</span>
+      <span class="marquee-item">Helvra</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Haldor</span>
+      <span class="marquee-item">Mirevox</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Bramble</span>
+      <span class="marquee-item">Ceryth</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Prysmly</span>
+      <span class="marquee-item">Plyral</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Quarkline</span>
+      <span class="marquee-item">Strynix</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Verdant Labs</span>
+      <span class="marquee-item">Tralvon</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Northbeam</span>
+      <span class="marquee-item">Wovent</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Cinder</span>
+      <span class="marquee-item">Nymbrix</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Polaroid AI</span>
+      <span class="marquee-item">Glarvox</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Embertype</span>
+      <span class="marquee-item">Krevant</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Forgework</span>
+      <span class="marquee-item">Feltrum</span>
       <span class="marquee-sep">//</span>
-      <span class="marquee-item">Heliograph</span>
+      <span class="marquee-item">Vyntor</span>
+      <span class="marquee-sep">//</span>
+      <span class="marquee-item">Solvane</span>
+      <span class="marquee-sep">//</span>
+      <span class="marquee-item">Quorix</span>
+      <span class="marquee-sep">//</span>
+      <span class="marquee-item">Helvra</span>
+      <span class="marquee-sep">//</span>
+      <span class="marquee-item">Mirevox</span>
       <span class="marquee-sep">//</span>
     </div>
   </div>
@@ -1846,7 +1803,7 @@
       All systems operational
     </span>
     <span class="footer-sep">//</span>
-      <span>© 2026 Skyline Intelligence. All rights reserved.</span>
+      <span>© 2026 SKYLINE INTELLIGENCE. All rights reserved.</span>
     <span class="footer-sep">//</span>
     <span class="footer-legal">
       <a href="./terms.html">Terms</a>
@@ -1871,7 +1828,7 @@
         <path d="M3 3 L13 13 M13 3 L3 13" />
       </svg>
     </button>
-    <h2 id="modal-title" class="modal-title">Welcome to Skyline Intelligence</h2>
+    <h2 id="modal-title" class="modal-title">Welcome to SKYLINE INTELLIGENCE</h2>
     <p class="modal-sub">Start building with AI models instantly</p>
     <div class="modal-tabs" role="tablist">
       <button class="modal-tab is-active" type="button" data-modal-tab="signin" role="tab" aria-selected="true">Sign In</button>
@@ -1889,7 +1846,7 @@
       </label>
       <button type="submit" class="btn btn-primary btn-block">Sign In</button>
     </form>
-    <form class="modal-form" data-modal-panel="signup" hidden onsubmit="event.preventDefault(); alert('Sign-up flow not wired in this static demo.');">
+    <form class="modal-form" data-modal-panel="signup" novalidate hidden onsubmit="event.preventDefault(); var f=this; var code=f.inviteCode; var banner=document.getElementById('signup-error'); function showErr(msg){ if(!banner){ banner=document.createElement('p'); banner.id='signup-error'; banner.className='modal-error'; f.parentNode.insertBefore(banner, f); } banner.textContent=msg; banner.hidden=false; } if(banner) banner.hidden=true; var codeVal = code.value.trim(); if(!codeVal){ showErr('Sign-up failed: an invite code is required.'); code.focus(); return false; } if(!/^[A-Za-z0-9-]{4,32}$/.test(codeVal)){ showErr('Sign-up failed: invite code format is invalid. Use letters, digits, or dashes (4\u201332 chars).'); code.focus(); return false; } if(!f.email.value.trim() || !f.password.value){ showErr('Sign-up failed: please fill in your email and password.'); return false; } alert('Sign-up flow not wired in this static demo.');">
       <label class="modal-field">
         <span>Email</span>
         <input type="email" autocomplete="email" required>
@@ -1897,6 +1854,10 @@
       <label class="modal-field">
         <span>Password</span>
         <input type="password" autocomplete="new-password" required>
+      </label>
+      <label class="modal-field">
+        <span>Invite code</span>
+        <input type="text" name="inviteCode" id="signup-invite-code" autocomplete="off" spellcheck="false" placeholder="e.g. SKY-7H2K-9XQ4" pattern="[A-Za-z0-9-]{4,32}" required oninput="var b=document.getElementById('signup-error'); if(b) b.hidden=true;">
       </label>
       <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
     </form>
@@ -2038,6 +1999,32 @@
 
     /* Expose openModal() for inline onclick handlers */
     window.openModal = open;
+
+    /* === Mobile nav drawer (≤900px) === */
+    (function () {
+      var toggle = document.querySelector('[data-nav-toggle]');
+      var nav = document.querySelector('[data-nav]');
+      if (!toggle || !nav) return;
+
+      function setOpen(open) {
+        toggle.classList.toggle('is-open', open);
+        nav.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+      toggle.addEventListener('click', function () {
+        setOpen(!nav.classList.contains('is-open'));
+      });
+      /* Close drawer after clicking any nav link (so anchor jumps scroll correctly) */
+      nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { setOpen(false); });
+      });
+      /* Auto-close if viewport widens past the breakpoint. */
+      var mq = window.matchMedia('(min-width: 901px)');
+      var onChange = function (e) { if (e.matches) setOpen(false); };
+      if (mq.addEventListener) mq.addEventListener('change', onChange);
+      else if (mq.addListener) mq.addListener(onChange);
+    })();
   })();
 
   /* === Iter 12 + 13: Scroll progress + back-to-top === */
@@ -2179,7 +2166,7 @@
           io.unobserve(e.target);
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.05, rootMargin: '0px 0px 200px 0px' });
     sections.forEach(function (s) { io.observe(s); });
   })();
 
